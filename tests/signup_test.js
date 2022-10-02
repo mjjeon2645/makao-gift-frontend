@@ -9,13 +9,13 @@ Scenario('고객이 회원가입을 하기 위해 웹사이트에 접속', ({ I 
 
   // Then
   I.see('SIGN UP');
-  I.see('이름 : ');
+  I.see('이름 :');
   I.see('3~7자까지 한글만 사용 가능');
-  I.see('아이디 : ');
+  I.see('아이디 :');
   I.see('영문소문자/숫자, 4~16자만 사용 가능');
-  I.see('비밀번호 : ');
+  I.see('비밀번호 :');
   I.see('8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함');
-  I.see('비밀번호 확인 : ');
+  I.see('비밀번호 확인 :');
   I.see('회원가입');
 });
 
@@ -24,10 +24,10 @@ Scenario('고객이 회원가입을 하기 위해 웹사이트에 접속', ({ I 
 //   I.amOnPage('/signup');
 
 //   // When
-//   I.fillField('이름 : ', '전민지');
-//   I.fillField('아이디 : ', 'mjjeon2645');
-//   I.fillField('비밀번호 : ', '123!@#qweQWE');
-//   I.fillField('비밀번호 확인 : ', '123!@#qweQWE');
+//   I.fillField('이름 :', '전민지');
+//   I.fillField('아이디 :', 'mjjeon2645');
+//   I.fillField('비밀번호 :', '123!@#qweQWE');
+//   I.fillField('비밀번호 확인: ', '123!@#qweQWE');
 //   I.click('[type=submit');
 
 //   // Then
