@@ -1,3 +1,4 @@
+import server from '../testServer';
 import UserStore from './UserStore';
 
 // 1. apiService 직접모킹
@@ -18,7 +19,20 @@ import UserStore from './UserStore';
 // }));
 
 // 2. __mocks__ 이용하여 모킹
-jest.mock('../services/ApiService');
+// jest.mock('../services/ApiService');
+
+// 3. testServer 모킹
+beforeAll(() => {
+  server.listen();
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
 
 const context = describe;
 

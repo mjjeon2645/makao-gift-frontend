@@ -21,6 +21,7 @@ export default class UserStore {
       // TODO. return을 안해주면 어떻게되나..?
       return accessToken;
     } catch (e) {
+      // console.log(e);
       return '';
     }
   }

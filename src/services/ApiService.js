@@ -1,7 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import axios from 'axios';
+import config from '../config';
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = config.apiBaseUrl;
 
 export default class ApiService {
   async postSession({ userId, password }) {
