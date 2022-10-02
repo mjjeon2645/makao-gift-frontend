@@ -10,7 +10,6 @@ import UserStore from './UserStore';
 //           accessToken: 'ACCESS.TOKEN',
 //           name: '전민지',
 //           amount: 50_000,
-//           orderHistory: [],
 //         };
 //       }
 //       return {};

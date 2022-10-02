@@ -15,7 +15,6 @@ const server = setupServer(
         accessToken: 'ACCESS.TOKEN',
         name: '전민지',
         amount: 50_000,
-        orderHistory: [],
       }));
     }
     return res(ctx.status(400));

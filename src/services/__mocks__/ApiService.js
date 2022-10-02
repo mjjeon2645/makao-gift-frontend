@@ -8,7 +8,6 @@ export default class ApiService {
         accessToken: 'ACCESS.TOKEN',
         name: '전민지',
         amount: 50_000,
-        orderHistory: [],
       };
     }
     throw new Error('Login failed');
