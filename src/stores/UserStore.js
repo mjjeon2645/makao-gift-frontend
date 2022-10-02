@@ -1,3 +1,5 @@
+import { apiService } from '../services/ApiService';
+
 export default class UserStore {
   constructor() {
     this.name = '';
@@ -6,17 +8,20 @@ export default class UserStore {
     this.orderHistory = [];
   }
 
-  login({ userId, password }) {
-    // TODO. 서버에서 가져와줘야 함. 현재는 테스트통과를 위해 임시로 지정
-    if (userId !== 'mjjeon2645') {
-      return;
-    }
+  async login({ userId, password }) {
+    try {
+      const {
+        accessToken, name, amount, orderHistory,
+      } = await apiService.postSession({ userId, password });
 
-    if (userId === 'mjjeon2645' && password !== '123!@#qweQWE') {
-      return;
-    }
+      this.name = name;
+      this.amount = amount;
+      this.orderHistory = orderHistory;
 
-    this.name = '전민지';
-    this.amount = 50_000;
+      // TODO. return을 안해주면 어떻게되나..?
+      return accessToken;
+    } catch (e) {
+      return '';
+    }
   }
 }
