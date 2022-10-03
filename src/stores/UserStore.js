@@ -7,6 +7,10 @@ export default class UserStore {
     this.name = '';
     this.userId = '';
     this.amount = 0;
+
+    this.signUpState = '';
+
+    this.errorMessage = '';
   }
 
   subscribe(listener) {
@@ -45,15 +49,33 @@ export default class UserStore {
       const data = await apiService.requestSignUp({
         name, userId, password, checkPassword,
       });
-
       this.name = data.name;
       this.userId = data.userId;
       this.amount = data.amount;
-
-      return { data };
     } catch (e) {
-      return '';
+      const { message } = e.response.data;
+      if (message === '해당 아이디는 사용할 수 없습니다') {
+        this.changeSignUpState('duplicated', { errorMessage: message });
+      }
+
+      if (message === '비밀번호가 일치하지 않습니다') {
+        this.changeSignUpState('error', { errorMessage: message });
+      }
     }
+  }
+
+  changeSignUpState(state, { errorMessage = '' } = {}) {
+    this.signUpState = state;
+    this.errorMessage = errorMessage;
+    this.publish();
+  }
+
+  get isUserIdDuplicated() {
+    return this.signUpState === 'duplicated';
+  }
+
+  get isCheckPasswordRight() {
+    return this.signUpState === 'error';
   }
 }
 

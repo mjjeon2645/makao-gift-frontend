@@ -1,10 +1,25 @@
+/* eslint-disable no-nested-ternary */
 import { useForm } from 'react-hook-form';
+import useUserStore from '../hooks/useUserStore';
 
 export default function SignUpForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
+  const userStore = useUserStore();
+
   const onSubmit = (data) => {
-    console.log(data);
+    const {
+      name, userId, password, checkPassword,
+    } = data;
+
+    userStore.signUp(
+      {
+        name,
+        userId,
+        password,
+        checkPassword,
+      },
+    );
   };
 
   return (
@@ -42,7 +57,9 @@ export default function SignUpForm() {
               },
             )}
           />
-          {errors.userId ? (
+          {userStore.isUserIdDuplicated ? (
+            <p>{userStore.errorMessage}</p>
+          ) : errors.userId ? (
             <p>{errors.userId.message}</p>
           )
             : <p>영문소문자/숫자, 4~16자만 사용 가능</p>}
@@ -80,10 +97,11 @@ export default function SignUpForm() {
               { required: { value: true, message: '비밀번호를 입력해주세요' } },
             )}
           />
-          {errors.checkPassword ? (
-            <p>{errors.checkPassword.message}</p>
-          )
-            : null}
+          {userStore.isCheckPasswordRight ? (
+            <p>{userStore.errorMessage}</p>)
+            : errors.checkPassword ? (
+              <p>{errors.checkPassword.message}</p>
+            ) : null}
         </div>
         <button type="submit">회원가입</button>
       </form>
