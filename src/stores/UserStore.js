@@ -40,7 +40,7 @@ export default class UserStore {
     } catch (e) {
       const message = e.response.data;
       this.changeLoginState('error', { errorMessage: message });
-      // return '';
+      return '';
     }
   }
 
