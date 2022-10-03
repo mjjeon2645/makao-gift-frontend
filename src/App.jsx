@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import OrderPage from './pages/OrderPage';
 import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
+import WelcomePage from './pages/WelcomePage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/order" element={<OrderPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
       </Routes>
     </div>
   );

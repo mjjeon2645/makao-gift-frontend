@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import useUserStore from '../hooks/useUserStore';
 
 export default function SignUpForm() {
@@ -7,12 +8,16 @@ export default function SignUpForm() {
 
   const userStore = useUserStore();
 
-  const onSubmit = (data) => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    userStore.signUpState = '';
+
     const {
       name, userId, password, checkPassword,
     } = data;
 
-    userStore.signUp(
+    await userStore.signUp(
       {
         name,
         userId,
@@ -20,6 +25,16 @@ export default function SignUpForm() {
         checkPassword,
       },
     );
+
+    if (userStore.isCheckPasswordRight) {
+      return;
+    }
+
+    if (userStore.isUserIdDuplicated) {
+      return;
+    }
+
+    navigate('/welcome');
   };
 
   return (

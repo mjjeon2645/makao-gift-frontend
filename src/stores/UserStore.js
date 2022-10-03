@@ -53,9 +53,11 @@ export default class UserStore {
       this.userId = data.userId;
       this.amount = data.amount;
     } catch (e) {
-      const { message } = e.response.data;
+      const message = e.response.data;
+
       if (message === '해당 아이디는 사용할 수 없습니다') {
         this.changeSignUpState('duplicated', { errorMessage: message });
+        console.log(this.signUpState);
       }
 
       if (message === '비밀번호가 일치하지 않습니다') {
