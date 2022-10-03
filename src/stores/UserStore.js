@@ -2,9 +2,23 @@ import { apiService } from '../services/ApiService';
 
 export default class UserStore {
   constructor() {
+    this.listeners = new Set();
+
     this.name = '';
     this.userId = '';
     this.amount = 0;
+  }
+
+  subscribe(listener) {
+    this.listeners.add(listener);
+  }
+
+  unsubscribe(listener) {
+    this.listeners.delete(listener);
+  }
+
+  publish() {
+    this.listeners.forEach((listener) => listener());
   }
 
   async login({ userId, password }) {
@@ -42,3 +56,5 @@ export default class UserStore {
     }
   }
 }
+
+export const userStore = new UserStore();

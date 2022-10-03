@@ -35,12 +35,16 @@ afterAll(() => {
 
 const context = describe;
 
-describe('UserStore', () => {
+describe('UserStore => login', () => {
+  let userStore;
+
+  beforeEach(() => {
+    userStore = new UserStore();
+  });
+
   describe('login', () => {
     context('정확한 id, password로 로그인', () => {
       it('로그인 성공', async () => {
-        const userStore = new UserStore();
-
         await userStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE' });
 
         expect(userStore.name).toBe('전민지');
@@ -50,8 +54,6 @@ describe('UserStore', () => {
 
     context('id가 틀렸을 때', () => {
       it('로그인 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.login({ userId: 'xxx', password: '123!@#qweQWE' });
 
         expect(userStore.name).toBeFalsy();
@@ -61,8 +63,6 @@ describe('UserStore', () => {
 
     context('password가 틀렸을 때', () => {
       it('로그인 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE!' });
 
         expect(userStore.name).toBeFalsy();
@@ -72,12 +72,16 @@ describe('UserStore', () => {
   });
 });
 
-describe('UserStore', () => {
+describe('UserStore => signUp', () => {
+  let userStore;
+
+  beforeEach(() => {
+    userStore = new UserStore();
+  });
+
   describe('signUp', () => {
     context('조건에 맞는 id, 이름, 패스워드, 체크페스워드 입력', () => {
       it('회원가입 성공', async () => {
-        const userStore = new UserStore();
-
         await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
@@ -92,8 +96,6 @@ describe('UserStore', () => {
 
     context('이름이 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.signUp({
           name: '전민지123',
           userId: 'mjjeon2645',
@@ -109,8 +111,6 @@ describe('UserStore', () => {
 
     context('아이디가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.signUp({
           name: '전민지',
           userId: 'abc',
@@ -126,8 +126,6 @@ describe('UserStore', () => {
 
     context('비밀번호가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
@@ -143,8 +141,6 @@ describe('UserStore', () => {
 
     context('체크 비밀번호가 비밀번호와 같지 않지 않을 때', () => {
       it('회원가입 실패', async () => {
-        const userStore = new UserStore();
-
         await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
