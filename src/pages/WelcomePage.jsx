@@ -1,29 +1,16 @@
-import useUserStore from '../hooks/useUserStore';
-import numberFormat from '../utils/numberFormat';
+import { useNavigate } from 'react-router-dom';
 
 export default function WelcomePage() {
-  const userStore = useUserStore();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/login');
+  };
   return (
     <div>
-      <p>
-        환영합니다~
-        {' '}
-        {userStore.name}
-        {' '}
-        회원님
-      </p>
-      <p>
-        회원님의 아이디는
-        {' '}
-        {userStore.userId}
-        이고
-      </p>
-      <p>
-        현재 잔액은
-        {' '}
-        {numberFormat(userStore.amount)}
-        원 입니다.
-      </p>
+      <h2>회원가입 완료</h2>
+      <p>마카오 선물하기 회원가입이 완료되었습니다.</p>
+      <p>정상적인 서비스 이용을 위해 로그인을 진행해주세요.</p>
+      <button type="button" onClick={handleClick}>로그인하기</button>
     </div>
   );
 }
