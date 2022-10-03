@@ -5,11 +5,18 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class ApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async postSession({ userId, password }) {
     const url = `${baseUrl}/session`;
     const { data } = await axios.post(url, { userId, password });
 
-    // TODO. 서버 데리고 왔을 때 뽀개서 줘야하는지 확인해보기
     return data;
   }
 
@@ -21,7 +28,6 @@ export default class ApiService {
       name, userId, password, checkPassword,
     });
 
-    // TODO. 서버 데리고 왔을 때 뽀개서 줘야하는지 확인해보기
     return data;
   }
 }

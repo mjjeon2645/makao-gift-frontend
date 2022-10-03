@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import SignUpForm from './SignUpForm';
 
+jest.mock('react-router-dom', () => ({
+  useNavigate() {
+    return {};
+  },
+}));
+
 test('SignUpForm', () => {
   render(<SignUpForm />);
 

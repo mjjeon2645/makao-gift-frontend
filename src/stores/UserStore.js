@@ -9,6 +9,7 @@ export default class UserStore {
     this.amount = 0;
 
     this.signUpState = '';
+    this.loginState = '';
 
     this.errorMessage = '';
   }
@@ -37,8 +38,9 @@ export default class UserStore {
       // TODO. return을 안해주면 어떻게되나..?
       return accessToken;
     } catch (e) {
-      // console.log(e);
-      return '';
+      const message = e.response.data;
+      this.changeLoginState('error', { errorMessage: message });
+      // return '';
     }
   }
 
@@ -57,7 +59,6 @@ export default class UserStore {
 
       if (message === '해당 아이디는 사용할 수 없습니다') {
         this.changeSignUpState('duplicated', { errorMessage: message });
-        console.log(this.signUpState);
       }
 
       if (message === '비밀번호가 일치하지 않습니다') {
@@ -68,6 +69,12 @@ export default class UserStore {
 
   changeSignUpState(state, { errorMessage = '' } = {}) {
     this.signUpState = state;
+    this.errorMessage = errorMessage;
+    this.publish();
+  }
+
+  changeLoginState(state, { errorMessage = '' } = {}) {
+    this.loginState = state;
     this.errorMessage = errorMessage;
     this.publish();
   }

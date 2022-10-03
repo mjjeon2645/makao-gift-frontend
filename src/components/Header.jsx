@@ -1,14 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from 'usehooks-ts';
 import useUserStore from '../hooks/useUserStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function Header() {
+  const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+
   // TODO. 이렇게 해서 amount가 자동으로 갱신되느냐? useEffect 필요하지 않나?
   // 우선 useUserStrore 안에서 처리됐으므로 기다려보기
   // 위치가 헤더가 맞는지 고민스럽다.
   const userStore = useUserStore();
 
+  const navigate = useNavigate();
+
   console.log(useUserStore);
+
+  const handleLogout = () => {
+    setAccessToken('');
+    navigate('/');
+  };
 
   return (
     <header>
@@ -28,29 +38,32 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-      <div>
-        <ul>
-          <li>
-            <Link to="/signup">회원가입</Link>
-          </li>
-          <li>
-            <Link to="/login">로그인</Link>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <ul>
-          <li>
-            내 잔액:
-            {' '}
-            {numberFormat(userStore.amount)}
-            원
-          </li>
-          <li>
-            <button type="button" onClick={() => {}}>로그아웃</button>
-          </li>
-        </ul>
-      </div>
+      {!accessToken ? (
+        <div>
+          <ul>
+            <li>
+              <Link to="/signup">회원가입</Link>
+            </li>
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <div>
+          <ul>
+            <li>
+              내 잔액:
+              {' '}
+              {numberFormat(userStore.amount)}
+              원
+            </li>
+            <li>
+              <button type="button" onClick={handleLogout}>로그아웃</button>
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
 }

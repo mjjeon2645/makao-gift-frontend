@@ -1,5 +1,7 @@
+import { useInsertionEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Reset } from 'styled-reset';
+import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -7,8 +9,15 @@ import OrderPage from './pages/OrderPage';
 import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
+import { apiService } from './services/ApiService';
 
 export default function App() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  useInsertionEffect(() => {
+    apiService.setAccessToken(accessToken);
+  }, [accessToken]);
+
   return (
     <div>
       <Reset />
