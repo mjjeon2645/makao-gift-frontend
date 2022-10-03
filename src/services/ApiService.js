@@ -12,6 +12,18 @@ export default class ApiService {
     // TODO. 서버 데리고 왔을 때 뽀개서 줘야하는지 확인해보기
     return data;
   }
+
+  async requestSignUp({
+    name, userId, password, checkPassword,
+  }) {
+    const url = `${baseUrl}/users`;
+    const { data } = await axios.post(url, {
+      name, userId, password, checkPassword,
+    });
+
+    // TODO. 서버 데리고 왔을 때 뽀개서 줘야하는지 확인해보기
+    return data;
+  }
 }
 
 export const apiService = new ApiService();

@@ -23,4 +23,22 @@ export default class UserStore {
       return '';
     }
   }
+
+  async signUp({
+    name, userId, password, checkPassword,
+  }) {
+    try {
+      const data = await apiService.requestSignUp({
+        name, userId, password, checkPassword,
+      });
+
+      this.name = data.name;
+      this.userId = data.userId;
+      this.amount = data.amount;
+
+      return { data };
+    } catch (e) {
+      return '';
+    }
+  }
 }

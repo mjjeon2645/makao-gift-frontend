@@ -19,6 +19,23 @@ const server = setupServer(
     }
     return res(ctx.status(400));
   }),
+
+  rest.post(`${baseUrl}/users`, async (req, res, ctx) => {
+    const {
+      name, userId, password, checkPassword,
+    } = await req.json();
+
+    if (name === '전민지' && userId === 'mjjeon2645'
+        && password === '123!@#qweQWE'
+        && checkPassword === '123!@#qweQWE') {
+      return res(ctx.json({
+        name: '전민지',
+        userId: 'mjjeon2645',
+        amount: 50_000,
+      }));
+    }
+    return res(ctx.status(400));
+  }),
 );
 
 export default server;
