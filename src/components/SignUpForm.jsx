@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import { watch } from 'fs';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../hooks/useUserStore';
@@ -50,7 +51,7 @@ export default function SignUpForm() {
               'name',
               {
                 required: { value: true, message: '이름을 입력해주세요' },
-                pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '아이디를 다시 확인해주세요' },
+                pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '이름을 다시 확인해주세요' },
               },
             )}
           />
@@ -109,7 +110,13 @@ export default function SignUpForm() {
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register(
               'checkPassword',
-              { required: { value: true, message: '비밀번호를 입력해주세요' } },
+              {
+                required: { value: true, message: '비밀번호를 입력해주세요' },
+                validated: {
+                  value: (value) => value === watch('password'),
+                  message: '비밀번호가 일치하지 않습니다',
+                },
+              },
             )}
           />
           {userStore.isCheckPasswordRight ? (

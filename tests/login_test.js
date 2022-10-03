@@ -25,8 +25,8 @@ Scenario('고객이 로그인에 성공', ({ I }) => {
   I.click('로그인하기');
 
   // Then
-  I.amOnPage('/');
-  I.see(/내 잔액:/);
+  // I.amOnPage('/');
+  I.see('내 잔액: 50,000원');
   I.see('로그아웃');
   I.dontSee('로그인');
   I.dontSee('회원가입');

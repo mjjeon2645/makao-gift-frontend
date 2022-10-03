@@ -25,12 +25,12 @@ const server = setupServer(
       name, userId, password, checkPassword,
     } = await req.json();
 
-    if (name === '전민지' && userId === 'mjjeon2645'
+    if (name === '전민지' && userId === 'mjjeon2647'
         && password === '123!@#qweQWE'
         && checkPassword === '123!@#qweQWE') {
       return res(ctx.json({
         name: '전민지',
-        userId: 'mjjeon2645',
+        userId: 'mjjeon2647',
         amount: 50_000,
       }));
     }

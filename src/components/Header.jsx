@@ -5,6 +5,7 @@ import numberFormat from '../utils/numberFormat';
 
 export default function Header() {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+  const [, setAmount] = useLocalStorage('amount', '');
 
   // TODO. 이렇게 해서 amount가 자동으로 갱신되느냐? useEffect 필요하지 않나?
   // 우선 useUserStrore 안에서 처리됐으므로 기다려보기
@@ -17,6 +18,7 @@ export default function Header() {
 
   const handleLogout = () => {
     setAccessToken('');
+    setAmount(userStore.amount);
     navigate('/');
   };
 
@@ -53,7 +55,7 @@ export default function Header() {
         <div>
           <ul>
             <li>
-              내 잔액:
+              내 잔액&#58;
               {' '}
               {numberFormat(userStore.amount)}
               원
