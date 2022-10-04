@@ -10,4 +10,13 @@ module.exports = () => actor({
   setupUser() {
     this.amOnPage(`${backdoorBaseUrl}/setup-user`);
   },
+
+  resetProducts() {
+    this.amOnPage(`${backdoorBaseUrl}/reset-products`);
+  },
+
+  setupThreeProducts() {
+    this.amOnPage(`${backdoorBaseUrl}/setup-three-products`);
+  },
+
 });

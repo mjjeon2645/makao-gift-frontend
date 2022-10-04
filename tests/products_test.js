@@ -2,6 +2,7 @@ Feature('Products Page');
 
 Scenario('고객이 상품 목록을 확인하기 위해 스토어 화면에 접속하고자 함(로그인 X, 상품 없음)', ({ I }) => {
   // Given
+  I.resetProducts();
   I.amOnPage('/');
 
   // When
@@ -11,20 +12,20 @@ Scenario('고객이 상품 목록을 확인하기 위해 스토어 화면에 접
   I.see('상품이 존재하지 않습니다');
 });
 
-// TODO. 사전 처리해줄 것들
+Scenario('고객이 상품목록을 확인하기 위해 스토어 화면에 접속하고자 함(로그인 X, 상품 3개 있음)', ({ I }) => {
+  // Given
+  I.setupThreeProducts();
+  I.amOnPage('/');
 
-// Scenario('고객이 상품목록을 확인하기 위해 스토어 화면에 접속하고자 함(로그인 X, 상품 있음)', ({ I }) => {
-//   // Given
-//   I.amOnPage('/');
+  // When
+  I.click('스토어');
 
-//   // TODO. 업로드 된 상품은 총 25개(..너무 많은가..)
-
-//   // When
-//   I.click('스토어');
-
-//   // Then
-//   I.see('인기 선물을 한 자리에 모았어요');
-// });
+  // Then
+  I.see('인기선물을 한 자리에 모았어요');
+  I.see('누구나 좋아하는 지방시 선물세트', 'button[type="button"]');
+  I.see('새로나온 아이폰 14', 'button[type="button"]');
+  I.see('상주농협', 'button[type="button"]');
+});
 
 // Scenario('고객이 상품목록 확인 중 로그인을 함)', ({ I }) => {
 //   // Given

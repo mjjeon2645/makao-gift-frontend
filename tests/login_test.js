@@ -17,11 +17,12 @@ Scenario('고객이 로그인 하기 위해 웹사이트에 접속', ({ I }) => 
 
 Scenario('고객이 로그인에 성공', ({ I }) => {
 // Given
+  I.setupUser();
   I.amOnPage('/login');
 
   // When
   I.fillField({ id: 'input-user-id' }, 'mjjeon2645');
-  I.fillField({ id: 'input-password' }, secret('123!@#qweQWE'));
+  I.fillField({ id: 'input-password' }, secret('123qweQWE$'));
   I.click('로그인하기');
 
   // Then
@@ -33,11 +34,12 @@ Scenario('고객이 로그인에 성공', ({ I }) => {
 
 Scenario('고객이 아이디와 비밀번호 중 하나 이상을 틀려 로그인에 실패', ({ I }) => {
   // Given
+  I.setupUser();
   I.amOnPage('/login');
 
   // When
   I.fillField({ id: 'input-user-id' }, 'mjjeon2645');
-  I.fillField({ id: 'input-password' }, secret('123!@#qweQWE!'));
+  I.fillField({ id: 'input-password' }, secret('123qweQWE$$'));
   I.click('로그인하기');
 
   // Then
