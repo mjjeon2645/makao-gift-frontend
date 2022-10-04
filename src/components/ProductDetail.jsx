@@ -11,12 +11,10 @@ export default function ProductDetail() {
   const { id } = location.state;
 
   useEffect(() => {
-    const data = giftshopStore.fetchProduct(id);
-    console.log(data);
+    giftshopStore.fetchProduct(id);
   }, []);
 
   const detail = giftshopStore.product;
-  console.log(detail);
 
   const handleClick = () => {
     //

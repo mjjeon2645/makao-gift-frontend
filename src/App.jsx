@@ -11,12 +11,15 @@ import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
 import { apiService } from './services/ApiService';
+import { giftshopStore } from './stores/GiftshopStore';
 
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
+  const [, setAmount] = useLocalStorage('amount', 0);
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);
+    setAmount(giftshopStore.amount);
   }, [accessToken]);
 
   return (
