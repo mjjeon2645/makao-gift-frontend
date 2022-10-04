@@ -19,25 +19,26 @@ Scenario('고객이 회원가입을 하기 위해 웹사이트에 접속', ({ I 
   I.see('회원가입');
 });
 
-Scenario('고객이 회원가입에 성공', async ({ I }) => {
+Scenario('고객이 회원가입에 성공', ({ I }) => {
   // Given
-  I.amOnPage('/signup');
+  I.resetUser();
+  I.amOnPage('/');
+  I.click('회원가입');
 
   // When
   I.fillField('이름 :', '전민지');
-  I.fillField('아이디 :', 'mjjeon2647');
+  I.fillField('아이디 :', 'angel26457');
   I.fillField('비밀번호 :', '123!@#qweQWE');
   I.fillField('비밀번호 확인 :', '123!@#qweQWE');
-  I.click('[type=submit]');
+  I.click('button[type="submit"]');
 
-  // 재확인 필요
   // Then
-  // await I.see('마카오 선물하기 회원가입이 완료되었습니다.');
-  // I.see('정상적인 서비스 이용을 위해 로그인을 진행해주세요.');
-  // I.see('로그인하기');
+  I.see('마카오 선물하기 회원가입이 완료되었습니다.');
+  I.see('정상적인 서비스 이용을 위해 로그인을 진행해주세요.');
+  I.see('로그인하기');
 
-  // I.click('로그인하기');
-  // I.see('USER LOGIN');
+  I.click('로그인하기');
+  I.see('USER LOGIN');
 });
 
 Scenario('고객이 모든 필드를 누락한 채 회원가입 버튼을 누름', ({ I }) => {
@@ -55,11 +56,15 @@ Scenario('고객이 모든 필드를 누락한 채 회원가입 버튼을 누름
 
 Scenario('가입하려는 아이디가 이미 존재하는 경우', ({ I }) => {
   // Given
+  I.setupUser();
+  I.amOnPage('/');
+  I.click('회원가입');
+
   I.amOnPage('/signup');
   I.fillField('이름 :', '전민지');
-  I.fillField('아이디 :', 'mjjeon2646');
-  I.fillField('비밀번호 :', '123!@#qweQWE');
-  I.fillField('비밀번호 확인 :', '123!@#qweQWE');
+  I.fillField('아이디 :', 'mjjeon2645');
+  I.fillField('비밀번호 :', '123qweQWE$');
+  I.fillField('비밀번호 확인 :', '123qweQWE$');
 
   // When
   I.click('[type=submit]');
@@ -83,6 +88,6 @@ Scenario('조건에 맞지 않는 사항을 입력했을 경우', ({ I }) => {
   I.see('이름을 다시 확인해주세요');
   I.see('아이디를 다시 확인해주세요');
   I.see('비밀번호를 다시 확인해주세요');
-  // 재확인 필요
+  // TODO. 재확인 필요
   // I.see('비밀번호가 일치하지 않습니다');
 });
