@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
-import { userStore } from '../stores/UserStore';
+import { giftshopStore } from '../stores/GiftshopStore';
 import useForceUpdate from './useForceUpdate';
 
-export default function useUserStore() {
+export default function useGiftshopStore() {
   // 변경사항을 구독
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    userStore.subscribe(forceUpdate);
+    giftshopStore.subscribe(forceUpdate);
 
     // 종료 시 구독 해제
-    return () => userStore.unsubscribe(forceUpdate);
+    return () => giftshopStore.unsubscribe(forceUpdate);
   }, [forceUpdate]);
 
-  return userStore;
+  return giftshopStore;
 }

@@ -1,4 +1,4 @@
-import { useInsertionEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
@@ -14,7 +14,7 @@ import { apiService } from './services/ApiService';
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
 
-  useInsertionEffect(() => {
+  useEffect(() => {
     apiService.setAccessToken(accessToken);
   }, [accessToken]);
 

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
-import useUserStore from '../hooks/useUserStore';
+import useGiftshopStore from '../hooks/useGiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function Header() {
@@ -10,15 +10,13 @@ export default function Header() {
   // TODO. 이렇게 해서 amount가 자동으로 갱신되느냐? useEffect 필요하지 않나?
   // 우선 useUserStrore 안에서 처리됐으므로 기다려보기
   // 위치가 헤더가 맞는지 고민스럽다.
-  const userStore = useUserStore();
+  const giftshopStore = useGiftshopStore();
 
   const navigate = useNavigate();
 
-  console.log(useUserStore);
-
   const handleLogout = () => {
     setAccessToken('');
-    setAmount(userStore.amount);
+    setAmount(giftshopStore.amount);
     navigate('/');
   };
 
@@ -57,7 +55,7 @@ export default function Header() {
             <li>
               내 잔액&#58;
               {' '}
-              {numberFormat(userStore.amount)}
+              {numberFormat(giftshopStore.amount)}
               원
             </li>
             <li>

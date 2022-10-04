@@ -1,6 +1,6 @@
 import { apiService } from '../services/ApiService';
 
-export default class UserStore {
+export default class GiftshopStore {
   constructor() {
     this.listeners = new Set();
 
@@ -12,6 +12,8 @@ export default class UserStore {
     this.loginState = '';
 
     this.errorMessage = '';
+
+    this.products = [];
   }
 
   subscribe(listener) {
@@ -67,6 +69,14 @@ export default class UserStore {
     }
   }
 
+  async fetchProducts() {
+    // this.products = [];
+    // this.publish();
+
+    this.products = await apiService.fetchProducts();
+    this.publish();
+  }
+
   changeSignUpState(state, { errorMessage = '' } = {}) {
     this.signUpState = state;
     this.errorMessage = errorMessage;
@@ -88,4 +98,4 @@ export default class UserStore {
   }
 }
 
-export const userStore = new UserStore();
+export const giftshopStore = new GiftshopStore();

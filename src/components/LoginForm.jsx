@@ -2,19 +2,19 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
-import useUserStore from '../hooks/useUserStore';
+import useGiftshopStore from '../hooks/useGiftshopStore';
 
 export default function LoginForm() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
   const navigate = useNavigate();
 
-  const userStore = useUserStore();
+  const giftshopStore = useGiftshopStore();
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     const { userId, password } = data;
-    const accessToken = await userStore.login({ userId, password });
+    const accessToken = await giftshopStore.login({ userId, password });
 
     if (accessToken) {
       setAccessToken(accessToken);
@@ -57,8 +57,8 @@ export default function LoginForm() {
           : errors.password ? (
             <p>{errors.password.message}</p>
           )
-            : userStore.loginState ? (
-              <p>{userStore.errorMessage}</p>
+            : giftshopStore.loginState ? (
+              <p>{giftshopStore.errorMessage}</p>
             )
               : null}
         <button type="submit">로그인하기</button>

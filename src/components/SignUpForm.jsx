@@ -2,23 +2,23 @@
 import { watch } from 'fs';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import useUserStore from '../hooks/useUserStore';
+import useGiftshopStore from '../hooks/useGiftshopStore';
 
 export default function SignUpForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
-  const userStore = useUserStore();
+  const giftshopStore = useGiftshopStore();
 
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    userStore.signUpState = '';
+    giftshopStore.signUpState = '';
 
     const {
       name, userId, password, checkPassword,
     } = data;
 
-    await userStore.signUp(
+    await giftshopStore.signUp(
       {
         name,
         userId,
@@ -27,11 +27,11 @@ export default function SignUpForm() {
       },
     );
 
-    if (userStore.isCheckPasswordRight) {
+    if (giftshopStore.isCheckPasswordRight) {
       return;
     }
 
-    if (userStore.isUserIdDuplicated) {
+    if (giftshopStore.isUserIdDuplicated) {
       return;
     }
 
@@ -73,8 +73,8 @@ export default function SignUpForm() {
               },
             )}
           />
-          {userStore.isUserIdDuplicated ? (
-            <p>{userStore.errorMessage}</p>
+          {giftshopStore.isUserIdDuplicated ? (
+            <p>{giftshopStore.errorMessage}</p>
           ) : errors.userId ? (
             <p>{errors.userId.message}</p>
           )
@@ -119,8 +119,8 @@ export default function SignUpForm() {
               },
             )}
           />
-          {userStore.isCheckPasswordRight ? (
-            <p>{userStore.errorMessage}</p>)
+          {giftshopStore.isCheckPasswordRight ? (
+            <p>{giftshopStore.errorMessage}</p>)
             : errors.checkPassword ? (
               <p>{errors.checkPassword.message}</p>
             ) : null}
