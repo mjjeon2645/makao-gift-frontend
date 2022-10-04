@@ -14,6 +14,7 @@ export default class GiftshopStore {
     this.errorMessage = '';
 
     this.products = [];
+    this.product = {};
   }
 
   subscribe(listener) {
@@ -74,6 +75,11 @@ export default class GiftshopStore {
     // this.publish();
 
     this.products = await apiService.fetchProducts();
+    this.publish();
+  }
+
+  async fetchProduct(id) {
+    this.product = await apiService.fetchProduct(id);
     this.publish();
   }
 
