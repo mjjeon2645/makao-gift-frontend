@@ -17,6 +17,7 @@ export default class GiftshopStore {
     this.product = {};
 
     this.volume = 1;
+    this.totalPrice = this.volume * this.product.price;
   }
 
   subscribe(listener) {
@@ -109,6 +110,10 @@ export default class GiftshopStore {
 
     this.volume -= 1;
     this.publish();
+  }
+
+  calculateTotalPrice(volume, price) {
+    return volume * price;
   }
 
   get isUserIdDuplicated() {
