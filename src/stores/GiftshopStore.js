@@ -39,6 +39,10 @@ export default class GiftshopStore {
       } = await apiService.postSession({ userId, password });
 
       this.name = name;
+
+      // TODO. 추후 signup에서 쓰는 userId와 충돌이 생기지 않는지 확인해야 함
+      this.userId = userId;
+
       this.amount = amount;
 
       // TODO. return을 안해주면 어떻게되나..?
@@ -121,8 +125,8 @@ export default class GiftshopStore {
     const { volume } = this;
     const { totalPrice } = this;
 
-    // TODO. 추후 필요할 경우 try-catch.
-    const data = await apiService.requestOrder({
+    // TODO. 추후 필요할 경우 리턴 받아서 try-catch.
+    await apiService.requestOrder({
       receiver, address, message, productId, volume, totalPrice,
     });
   }

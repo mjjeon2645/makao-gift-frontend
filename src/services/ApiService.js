@@ -51,8 +51,11 @@ export default class ApiService {
     const url = `${baseUrl}/order`;
     const { data } = await axios.post(url, {
       receiver, address, message, productId, volume, totalPrice,
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
-
     return data;
   }
 }
