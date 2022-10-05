@@ -18,7 +18,6 @@ export default function OrderForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
-    // TODO. data를 넘겨주고 그 데이터로 주문 히스토리를 만들어야 함
     const { receiver, address, message } = data;
 
     await giftshopStore.order({ receiver, address, message });
