@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from 'usehooks-ts';
 import useGiftshopStore from '../hooks/useGiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function ProductDetail() {
   const giftshopStore = useGiftshopStore();
+
+  const [accessToken] = useLocalStorage('accessToken', '');
 
   const location = useLocation();
 
@@ -30,7 +33,12 @@ export default function ProductDetail() {
 
   // TODO. 내 잔액보다 토탈금액이 클 경우 에러처리 해주어야 함
   const handleOrderClick = () => {
-    navigate('/order', { state: { id } });
+    if (!accessToken) {
+      navigate('/login', { state: { id } });
+    }
+    if (accessToken) {
+      navigate('/order', { state: { id } });
+    }
   };
 
   return (
