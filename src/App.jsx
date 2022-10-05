@@ -6,6 +6,7 @@ import Header from './components/Header';
 import ProductDetail from './components/ProductDetail';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import OrderHistoriesPage from './pages/OrderHistoriesPage';
 import OrderPage from './pages/OrderPage';
 import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
@@ -36,6 +37,7 @@ export default function App() {
           element={<ProductDetail />}
         />
         <Route path="/order" element={<OrderPage />} />
+        <Route path="/orders" element={<OrderHistoriesPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
       </Routes>
     </div>

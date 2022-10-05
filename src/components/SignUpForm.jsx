@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { watch } from 'fs';
+import { act } from 'react-dom/test-utils';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';
@@ -43,7 +44,7 @@ export default function SignUpForm() {
       <h2>SIGN UP</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="input-name">이름 &#58;</label>
+          <label htmlFor="input-name">이름 :</label>
           <input
             id="input-name"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -61,7 +62,7 @@ export default function SignUpForm() {
             : <p>3~7자까지 한글만 사용 가능</p>}
         </div>
         <div>
-          <label htmlFor="input-id">아이디 &#58;</label>
+          <label htmlFor="input-id">아이디 :</label>
           <input
             id="input-id"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -81,7 +82,7 @@ export default function SignUpForm() {
             : <p>영문소문자/숫자, 4~16자만 사용 가능</p>}
         </div>
         <div>
-          <label htmlFor="input-password">비밀번호 &#58;</label>
+          <label htmlFor="input-password">비밀번호 :</label>
           <input
             id="input-password"
             type="password"
@@ -103,7 +104,7 @@ export default function SignUpForm() {
             : <p>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</p>}
         </div>
         <div>
-          <label htmlFor="input-check-password">비밀번호 확인 &#58;</label>
+          <label htmlFor="input-check-password">비밀번호 확인 :</label>
           <input
             id="input-check-password"
             type="password"

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
@@ -8,10 +8,10 @@ export default function OrderForm() {
 
   const navigate = useNavigate();
 
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
   // 이거 필요한가?
-  const productId = state.id;
+  // const productId = state.id;
 
   const { name, manufacturer } = giftshopStore.product;
 

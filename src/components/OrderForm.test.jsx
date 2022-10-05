@@ -2,7 +2,9 @@ import { render, screen } from '@testing-library/react';
 import OrderForm from './OrderForm';
 
 test('OrderForm', () => {
-  render(<OrderForm />);
+  render(
+    <OrderForm />,
+  );
 
   screen.getByLabelText('받는 분 성함');
   screen.getByText('3~7자까지 한글만 사용 가능');

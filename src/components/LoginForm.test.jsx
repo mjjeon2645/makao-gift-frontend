@@ -1,20 +1,7 @@
 import {
   fireEvent, render, screen, waitFor,
 } from '@testing-library/react';
-import server from '../testServer';
 import LoginForm from './LoginForm';
-
-beforeAll(() => {
-  server.listen();
-});
-
-afterEach(() => {
-  server.resetHandlers();
-});
-
-afterAll(() => {
-  server.close();
-});
 
 const navigate = jest.fn();
 
@@ -22,7 +9,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => navigate,
 }));
 
-test('LoginForm', async () => {
+test('LoginForm', () => {
   render(
     <LoginForm />,
   );
@@ -40,7 +27,7 @@ test('LoginForm', async () => {
   // fireEvent.click(screen.getByRole('button', { name: '로그인하기' }));
   fireEvent.click(screen.getByText('로그인하기'));
 
-  await waitFor(() => {
+  waitFor(() => {
     expect(navigate).toBeCalledWith('/');
   });
 });
