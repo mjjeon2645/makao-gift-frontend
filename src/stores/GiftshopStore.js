@@ -15,6 +15,8 @@ export default class GiftshopStore {
 
     this.products = [];
     this.product = {};
+
+    this.volume = 1;
   }
 
   subscribe(listener) {
@@ -92,6 +94,20 @@ export default class GiftshopStore {
   changeLoginState(state, { errorMessage = '' } = {}) {
     this.loginState = state;
     this.errorMessage = errorMessage;
+    this.publish();
+  }
+
+  increaseVolume() {
+    this.volume += 1;
+    this.publish();
+  }
+
+  decreaseVolume() {
+    if (this.volume === 1) {
+      return;
+    }
+
+    this.volume -= 1;
     this.publish();
   }
 

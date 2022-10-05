@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ProductDetail from './ProductDetail';
 
 test('Product Detatil', () => {
-  render(<ProductDetail />);
+  render(
+    <MemoryRouter>
+      <ProductDetail />
+    </MemoryRouter>,
+  );
 
   screen.getByText('제조사');
 

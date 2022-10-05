@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ProductsList from './ProductsList';
 
 test('ProductsList', () => {
-  render(<ProductsList />);
+  render(
+    <MemoryRouter>
+      <ProductsList />
+    </MemoryRouter>,
+  );
 
   // TODO. 상품이 있을 때와 없을 때의 경우로 나누어 테스트 진행 가능해야 함
 

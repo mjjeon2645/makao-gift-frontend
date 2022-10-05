@@ -16,9 +16,20 @@ export default function ProductDetail() {
 
   const detail = giftshopStore.product;
 
-  const handleClick = () => {
+  // TODO. volume이 1일때 disabled 마이너스 이미지.
+  // TODO. volume이 2이상일때 enabled 마이너스 이미지.
+  const handleMinusClick = () => {
+    giftshopStore.decreaseVolume();
+  };
+
+  const handlePlusClick = () => {
+    giftshopStore.increaseVolume();
+  };
+
+  const handleOrderClick = () => {
     //
   };
+
   return (
     <div>
       <div>{detail.imgSource}</div>
@@ -34,7 +45,17 @@ export default function ProductDetail() {
         </div>
         <div>
           <p>구매수량</p>
-          <p>숫자와 버튼</p>
+          <div>
+            {giftshopStore.volume === 1 ? (
+              <button type="button" disabled={giftshopStore.volume === 1}>비-</button>
+            ) : (
+              <button type="button" onClick={handleMinusClick}>
+                활-
+              </button>
+            )}
+            <p>{giftshopStore.volume}</p>
+            <button type="button" onClick={handlePlusClick}>+</button>
+          </div>
         </div>
         <div>
           <p>상품설명</p>
@@ -44,7 +65,7 @@ export default function ProductDetail() {
           <p>총 상품금액&#58;</p>
           <p>10,000원</p>
         </div>
-        <button type="button" onClick={handleClick}>선물하기</button>
+        <button type="button" onClick={handleOrderClick}>선물하기</button>
       </div>
     </div>
   );
