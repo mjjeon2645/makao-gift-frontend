@@ -30,9 +30,6 @@ export default function ProductDetail() {
     //
   };
 
-  console.log(typeof (giftshopStore.volume));
-  console.log(typeof (detail.price));
-
   return (
     <div>
       <div>{detail.imgSource}</div>
@@ -67,7 +64,7 @@ export default function ProductDetail() {
         <div>
           <p>총 상품금액&#58;</p>
           <p>
-            {numberFormat(giftshopStore.calculateTotalPrice(giftshopStore.volume, detail.price))}
+            {numberFormat(giftshopStore.totalPrice)}
             원
           </p>
         </div>

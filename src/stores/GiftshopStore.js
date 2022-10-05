@@ -17,7 +17,7 @@ export default class GiftshopStore {
     this.product = {};
 
     this.volume = 1;
-    this.totalPrice = this.volume * this.product.price;
+    this.totalPrice = 0;
   }
 
   subscribe(listener) {
@@ -82,7 +82,9 @@ export default class GiftshopStore {
   }
 
   async fetchProduct(id) {
-    this.product = await apiService.fetchProduct(id);
+    const productInformation = await apiService.fetchProduct(id);
+    this.product = productInformation;
+    this.totalPrice = productInformation.price;
     this.publish();
   }
 
@@ -100,6 +102,7 @@ export default class GiftshopStore {
 
   increaseVolume() {
     this.volume += 1;
+    this.totalPrice = this.volume * this.product.price;
     this.publish();
   }
 
@@ -109,11 +112,8 @@ export default class GiftshopStore {
     }
 
     this.volume -= 1;
+    this.totalPrice = this.volume * this.product.price;
     this.publish();
-  }
-
-  calculateTotalPrice(volume, price) {
-    return volume * price;
   }
 
   get isUserIdDuplicated() {
