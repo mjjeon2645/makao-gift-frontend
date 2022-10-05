@@ -17,8 +17,11 @@ export default function OrderForm() {
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // TODO. data를 넘겨주고 그 데이터로 주문 히스토리를 만들어야 함
+    const { receiver, address, message } = data;
+
+    await giftshopStore.order({ receiver, address, message });
 
     // TODO. 주문조회 매뉴로 이동. 내 주문내역이 업데이트 되어 뿌려져야 함
     navigate('/orders');
@@ -43,15 +46,15 @@ export default function OrderForm() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="input-name">받는 분 성함</label>
+          <label htmlFor="input-receiver">받는 분 성함</label>
           <input
-            id="input-name"
+            id="input-receiver"
             maxLength="7"
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register('name', { required: { value: true, message: '성함을 입력해주세요' } })}
+            {...register('receiver', { required: { value: true, message: '성함을 입력해주세요' } })}
           />
-          {errors.name ? (
-            <p>{errors.name.message}</p>
+          {errors.receiver ? (
+            <p>{errors.receiver.message}</p>
           ) : (
             <p>3~7자까지 한글만 사용 가능</p>
           )}

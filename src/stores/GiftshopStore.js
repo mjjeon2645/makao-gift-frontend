@@ -116,6 +116,17 @@ export default class GiftshopStore {
     this.publish();
   }
 
+  async order({ receiver, address, message }) {
+    const productId = this.product.id;
+    const { volume } = this;
+    const { totalPrice } = this;
+
+    // TODO. 추후 필요할 경우 try-catch.
+    const data = await apiService.requestOrder({
+      receiver, address, message, productId, volume, totalPrice,
+    });
+  }
+
   get isUserIdDuplicated() {
     return this.signUpState === 'duplicated';
   }
