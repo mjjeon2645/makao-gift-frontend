@@ -9,6 +9,7 @@ export default function Header() {
   // TODO. 이렇게 해서 amount가 자동으로 갱신되느냐? useEffect 필요하지 않나?
   // 우선 useUserStrore 안에서 처리됐으므로 기다려보기
   // 위치가 헤더가 맞는지 고민스럽다.
+  // 액세스토큰 여부에 따라 회원가입 link를 다르게 줬는데 근원해결책은 아닌듯. 더 고민해보자.
   const giftshopStore = useGiftshopStore();
 
   const navigate = useNavigate();
@@ -31,9 +32,13 @@ export default function Header() {
           <li>
             <Link to="/products">스토어</Link>
           </li>
-          <li>
-            <Link to="/orders">주문조회</Link>
-          </li>
+          {accessToken ? (
+            <li>
+              <Link to="/orders">주문조회</Link>
+            </li>
+          ) : (
+            <Link to="/login">주문조회</Link>
+          )}
         </ul>
       </nav>
       {!accessToken ? (
