@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
@@ -7,6 +7,8 @@ export default function ProductDetail() {
   const giftshopStore = useGiftshopStore();
 
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   const { id } = location.state;
 
@@ -27,7 +29,7 @@ export default function ProductDetail() {
   };
 
   const handleOrderClick = () => {
-    //
+    navigate('/order', { state: { id } });
   };
 
   return (
