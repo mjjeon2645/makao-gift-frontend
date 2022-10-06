@@ -56,7 +56,7 @@ export default function Header() {
         <div>
           <ul>
             <li>
-              내 잔액&#58;
+              내 잔액:
               {' '}
               {numberFormat(giftshopStore.amount)}
               원

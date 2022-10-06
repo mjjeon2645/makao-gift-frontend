@@ -58,6 +58,18 @@ export default class ApiService {
     });
     return data;
   }
+
+  async requestOrderHistories() {
+    const url = `${baseUrl}/orders`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    console.log(data);
+
+    return data;
+  }
 }
 
 export const apiService = new ApiService();

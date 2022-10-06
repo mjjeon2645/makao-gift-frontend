@@ -18,6 +18,8 @@ export default class GiftshopStore {
 
     this.volume = 1;
     this.totalPrice = 0;
+
+    this.orderHistories = [];
   }
 
   subscribe(listener) {
@@ -129,6 +131,12 @@ export default class GiftshopStore {
     await apiService.requestOrder({
       receiver, address, message, productId, volume, totalPrice,
     });
+  }
+
+  async fetchOrderHistories() {
+    const data = await apiService.requestOrderHistories();
+    this.orderHistories = data.orderHistories;
+    this.publish();
   }
 
   get isUserIdDuplicated() {
