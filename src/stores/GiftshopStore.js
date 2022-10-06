@@ -20,6 +20,7 @@ export default class GiftshopStore {
     this.totalPrice = 0;
 
     this.orderHistories = [];
+    this.orderHistory = {};
   }
 
   subscribe(listener) {
@@ -80,6 +81,7 @@ export default class GiftshopStore {
   }
 
   async fetchProducts() {
+    // 이 작업이 왜 필요한거지?
     // this.products = [];
     // this.publish();
 
@@ -136,6 +138,12 @@ export default class GiftshopStore {
   async fetchOrderHistories() {
     const data = await apiService.requestOrderHistories();
     this.orderHistories = data.orderHistories;
+    this.publish();
+  }
+
+  async fetchOrderHistory(id) {
+    const data = await apiService.requestOrderHistory(id);
+    this.orderHistory = data;
     this.publish();
   }
 

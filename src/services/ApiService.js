@@ -66,8 +66,17 @@ export default class ApiService {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
-    console.log(data);
 
+    return data;
+  }
+
+  async requestOrderHistory(id) {
+    const url = `${baseUrl}/orders/${id}`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
     return data;
   }
 }

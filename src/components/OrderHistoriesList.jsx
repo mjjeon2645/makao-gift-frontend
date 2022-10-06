@@ -1,10 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';
 
 export default function OrderHistoriesList() {
   const giftshopStore = useGiftshopStore();
+  const navigate = useNavigate();
 
-  const handleClick = () => {
-    //
+  const handleClick = (id) => {
+    navigate(`/orders/${id}`, { state: { id } });
   };
 
   return (
@@ -17,7 +19,7 @@ export default function OrderHistoriesList() {
           <ul>
             {giftshopStore.orderHistories.map((orderHistory) => (
               <li key={orderHistory.id}>
-                <button type="button" onClick={handleClick}>
+                <button type="button" onClick={() => handleClick(orderHistory.id)}>
                   <p>{orderHistory.manufacturer}</p>
                   <p>{orderHistory.productName}</p>
                   <strong>

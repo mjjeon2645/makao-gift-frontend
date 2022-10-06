@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
+import OrderHistoryDetail from './components/OrderHistoryDetail';
 import ProductDetail from './components/ProductDetail';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -38,6 +39,10 @@ export default function App() {
         />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/orders" element={<OrderHistoriesPage />} />
+        <Route
+          path="/orders/:id"
+          element={<OrderHistoryDetail />}
+        />
         <Route path="/welcome" element={<WelcomePage />} />
       </Routes>
     </div>
