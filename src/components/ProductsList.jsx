@@ -1,10 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { giftshopStore } from '../stores/GiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function ProductsList() {
   // TODO. 상품 리스트가 있을 경우 8개씩 해서 페이지네이션
   const { products } = giftshopStore;
+
+  const location = useLocation();
+  console.log(location);
+  console.log('프로덕트리스츠');
 
   const navigate = useNavigate();
 
