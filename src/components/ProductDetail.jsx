@@ -37,6 +37,12 @@ export default function ProductDetail() {
       navigate('/login', { state: { id } });
     }
     if (accessToken) {
+      if (giftshopStore.amount < giftshopStore.totalPrice) {
+        giftshopStore.changeAmountState('low');
+        return;
+      }
+
+      giftshopStore.changeAmountState('');
       navigate('/order', { state: { id } });
     }
   };
@@ -80,6 +86,11 @@ export default function ProductDetail() {
           </p>
         </div>
         <button type="button" onClick={handleOrderClick}>선물하기</button>
+        {giftshopStore.isLowAmount ? (
+          <p>❌잔액이 부족하여 선물하기가 불가합니다❌</p>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

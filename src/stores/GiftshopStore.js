@@ -11,6 +11,8 @@ export default class GiftshopStore {
     this.signUpState = '';
     this.loginState = '';
 
+    this.amountState = '';
+
     this.errorMessage = '';
 
     this.products = [];
@@ -108,6 +110,11 @@ export default class GiftshopStore {
     this.publish();
   }
 
+  changeAmountState(state) {
+    this.amountState = state;
+    this.publish();
+  }
+
   increaseVolume() {
     this.volume += 1;
     this.totalPrice = this.volume * this.product.price;
@@ -153,6 +160,10 @@ export default class GiftshopStore {
 
   get isCheckPasswordRight() {
     return this.signUpState === 'error';
+  }
+
+  get isLowAmount() {
+    return this.amountState === 'low';
   }
 }
 

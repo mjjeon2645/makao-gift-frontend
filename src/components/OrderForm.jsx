@@ -50,7 +50,13 @@ export default function OrderForm() {
             id="input-receiver"
             maxLength="7"
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register('receiver', { required: { value: true, message: '성함을 입력해주세요' } })}
+            {...register(
+              'receiver',
+              {
+                required: { value: true, message: '성함을 입력해주세요' },
+                pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '성함을 다시 확인해주세요' },
+              },
+            )}
           />
           {errors.receiver ? (
             <p>{errors.receiver.message}</p>
