@@ -17,21 +17,17 @@ import { giftshopStore } from './stores/GiftshopStore';
 
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
-  // const [amount] = useLocalStorage('amount', 0);
+
+  const { amount } = giftshopStore;
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);
-    // setAmount(giftshopStore.amount);
   }, [accessToken]);
-
-  // useEffect(() => {
-  //   giftshopStore.setAmount(amount);
-  // }, []);
 
   return (
     <div>
       <Reset />
-      <Header />
+      <Header amount={amount} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />

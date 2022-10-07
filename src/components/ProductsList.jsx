@@ -7,7 +7,7 @@ export default function ProductsList() {
   const { products } = giftshopStore;
   const { totalPageNumbers } = giftshopStore;
 
-  const location = useLocation();
+  // const location = useLocation();
 
   const navigate = useNavigate();
 

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
+// TODO. 여기에다가 '뒤로가기' 버튼 주는게 어떨까?
 export default function OrderHistoryDetail() {
   const location = useLocation();
   const { id } = location.state;

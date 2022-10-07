@@ -35,9 +35,6 @@ export default class ApiService {
     const url = `${baseUrl}/products`;
     const { data } = await axios.get(url);
     const { products, totalPageNumbers } = data;
-    console.log(products);
-    console.log(totalPageNumbers);
-    console.log('위에 두개는 apiservice쪽 fethcproducts');
 
     return { products, totalPageNumbers };
   }

@@ -5,7 +5,7 @@ import useGiftshopStore from '../hooks/useGiftshopStore';
 import { giftshopStore } from '../stores/GiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
-export default function Header() {
+export default function Header({ amount }) {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
   // const [amount, setAmount] = useLocalStorage('amount', '');
 
@@ -23,7 +23,6 @@ export default function Header() {
 
   const handleLogout = () => {
     setAccessToken('');
-    // setAmount(0);
     navigate('/');
   };
 
@@ -66,7 +65,7 @@ export default function Header() {
             <li>
               내 잔액:
               {' '}
-              {numberFormat(giftshopStore.amount)}
+              {numberFormat(amount)}
               원
             </li>
             <li>

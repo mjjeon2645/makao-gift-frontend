@@ -95,6 +95,7 @@ export default class GiftshopStore {
     // 이 작업이 왜 필요한거지?
     // this.products = [];
     // this.publish();
+    this.volume = 1;
 
     const { products, totalPageNumbers } = await apiService.fetchProducts();
     console.log(products);
