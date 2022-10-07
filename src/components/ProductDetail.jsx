@@ -31,7 +31,6 @@ export default function ProductDetail() {
     giftshopStore.increaseVolume();
   };
 
-  // TODO. 내 잔액보다 토탈금액이 클 경우 에러처리 해주어야 함
   const handleOrderClick = () => {
     if (!accessToken) {
       navigate('/login', { state: { id } });

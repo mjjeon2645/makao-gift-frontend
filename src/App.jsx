@@ -17,12 +17,16 @@ import { giftshopStore } from './stores/GiftshopStore';
 
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
-  const [, setAmount] = useLocalStorage('amount', 0);
+  // const [amount] = useLocalStorage('amount', 0);
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);
-    setAmount(giftshopStore.amount);
+    // setAmount(giftshopStore.amount);
   }, [accessToken]);
+
+  // useEffect(() => {
+  //   giftshopStore.setAmount(amount);
+  // }, []);
 
   return (
     <div>

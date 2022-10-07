@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
 import { watch } from 'fs';
-import { act } from 'react-dom/test-utils';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useGiftshopStore from '../hooks/useGiftshopStore';

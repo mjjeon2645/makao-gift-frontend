@@ -18,6 +18,8 @@ export default class GiftshopStore {
     this.products = [];
     this.product = {};
 
+    this.totalPageNumbers = [];
+
     this.volume = 1;
     this.totalPrice = 0;
 
@@ -47,8 +49,9 @@ export default class GiftshopStore {
 
       // TODO. 추후 signup에서 쓰는 userId와 충돌이 생기지 않는지 확인해야 함
       this.userId = userId;
-
-      this.amount = amount;
+      this.setAmount(amount);
+      this.publish();
+      // this.amount = amount;
 
       // TODO. return을 안해주면 어떻게되나..?
       return accessToken;
@@ -57,6 +60,10 @@ export default class GiftshopStore {
       this.changeLoginState('error', { errorMessage: message });
       return '';
     }
+  }
+
+  setAmount(amount) {
+    this.amount = amount;
   }
 
   async signUp({
@@ -68,7 +75,9 @@ export default class GiftshopStore {
       });
       this.name = data.name;
       this.userId = data.userId;
-      this.amount = data.amount;
+      // this.amount = data.amount;
+      this.setAmount(data.amount);
+      this.publish();
     } catch (e) {
       const message = e.response.data;
 
@@ -87,7 +96,17 @@ export default class GiftshopStore {
     // this.products = [];
     // this.publish();
 
-    this.products = await apiService.fetchProducts();
+    const { products, totalPageNumbers } = await apiService.fetchProducts();
+    console.log(products);
+    console.log('위에거 하나는 스토어쪽 펫치프로덕츠');
+    this.products = products;
+    this.totalPageNumbers = [...Array(totalPageNumbers)].map((number, index) => index + 1);
+
+    this.publish();
+  }
+
+  async changePageNumber(number) {
+    this.products = await apiService.requestChangePage(number);
     this.publish();
   }
 
@@ -136,10 +155,11 @@ export default class GiftshopStore {
     const { volume } = this;
     const { totalPrice } = this;
 
-    // TODO. 추후 필요할 경우 리턴 받아서 try-catch.
-    await apiService.requestOrder({
+    const { amount } = await apiService.requestOrder({
       receiver, address, message, productId, volume, totalPrice,
     });
+    this.setAmount(amount);
+    this.publish();
   }
 
   async fetchOrderHistories() {
