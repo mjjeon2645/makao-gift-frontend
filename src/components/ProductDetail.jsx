@@ -39,6 +39,7 @@ export default function ProductDetail() {
       navigate('/login', { state: { id } });
     }
     if (accessToken) {
+      // if (userStore.amount < productStore.totalPrice) {
       if (userStore.amount < productStore.totalPrice) {
         productStore.changeAmountState('low');
         return;
@@ -81,7 +82,7 @@ export default function ProductDetail() {
           <p>{detail.description}</p>
         </div>
         <div>
-          <p>총 상품금액&#58;</p>
+          <p>총 상품금액:</p>
           <p>
             {numberFormat(productStore.totalPrice)}
             원

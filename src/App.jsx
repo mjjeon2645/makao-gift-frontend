@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
@@ -24,6 +24,20 @@ export default function App() {
   useEffect(() => {
     apiService.setAccessToken(accessToken);
   }, [accessToken]);
+
+  // useEffect(() => {
+  //   apiService.setAmount(amount);
+  // }, [amount]);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem('accessToken')) {
+  //     apiService.setAccessToken(accessToken);
+  //   }
+
+  //   if (!localStorage.getItem('accessToken')) {
+  //     navigate('/');
+  //   }
+  // }, [accessToken]);
 
   return (
     <div>

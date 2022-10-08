@@ -26,6 +26,21 @@ export default class UserStore {
     this.listeners.forEach((listener) => listener());
   }
 
+  clearState() {
+    this.name = '';
+    this.userId = '';
+    this.amount = 0;
+    this.signUpState = '';
+    this.loginState = '';
+    this.errorMessage = '';
+  }
+
+  // 이런게 필요한건가?????
+  setAmount(amount) {
+    this.amount = amount;
+    this.publish();
+  }
+
   async login({ userId, password }) {
     try {
       const {

@@ -6,7 +6,7 @@ import useUserStore from '../hooks/useUserStore';
 
 export default function LoginForm() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
-  // const [, setAmount] = useLocalStorage('amount', 0);
+
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state ? location.state : '';
@@ -21,7 +21,6 @@ export default function LoginForm() {
 
     if (accessToken) {
       setAccessToken(accessToken);
-      // setAmount(giftshopStore.amount);
 
       if (location.state) {
         navigate(`/products/${id}`, { state: { id } });

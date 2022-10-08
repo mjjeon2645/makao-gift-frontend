@@ -43,8 +43,6 @@ export default class ApiService {
     const url = `${baseUrl}/products`;
     const params = { page: number };
     const { data } = await axios.get(url, { params });
-    console.log(data.products);
-    console.log('위에 하나는 apiservice쪽 requestchangePage');
     return data.products;
   }
 

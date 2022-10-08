@@ -1,25 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import numberFormat from '../utils/numberFormat';
+import useUserStore from '../hooks/useUserStore';
+import useProductStore from '../hooks/useProductStore';
 
 export default function Header({ amount }) {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
-  // const [amount, setAmount] = useLocalStorage('amount', '');
-
   // TODO. 이렇게 해서 amount가 자동으로 갱신되느냐? useEffect 필요하지 않나?
   // 우선 useUserStrore 안에서 처리됐으므로 기다려보기
   // 위치가 헤더가 맞는지 고민스럽다.
   // 액세스토큰 여부에 따라 회원가입 link를 다르게 줬는데 근원해결책은 아닌듯. 더 고민해보자.
-  // const giftshopStore = useGiftshopStore();
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   giftshopStore.setAmount(giftshopStore.amount);
-  // }, []);
+  const userStore = useUserStore();
+  const productStore = useProductStore();
 
   const handleLogout = () => {
     setAccessToken('');
+    userStore.clearState();
+    productStore.clearState();
     navigate('/');
   };
 

@@ -1,4 +1,5 @@
 import { apiService } from '../services/ApiService';
+import { userStore } from './UserStore';
 
 export default class ProductStore {
   constructor() {
@@ -30,6 +31,15 @@ export default class ProductStore {
 
   publish() {
     this.listeners.forEach((listener) => listener());
+  }
+
+  clearState() {
+    this.volume = 1;
+    this.totalPrice = 0;
+    this.orderHistories = [];
+    this.orderHistory = {};
+    this.amountState = '';
+    this.errorMessage = '';
   }
 
   async fetchProducts() {
@@ -78,9 +88,13 @@ export default class ProductStore {
     const { volume } = this;
     const { totalPrice } = this;
 
-    await apiService.requestOrder({
+    // TODO. 여기서 오더를 때리면 나오는 반환값이 '변경된 잔액'임. 얘를 어떻게 유저의 amount와 연동시킬것인가.
+    const data = await apiService.requestOrder({
       receiver, address, message, productId, volume, totalPrice,
     });
+
+    userStore.setAmount(data.amount);
+
     this.publish();
   }
 
