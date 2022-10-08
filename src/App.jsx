@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
@@ -14,9 +15,17 @@ import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
 import { apiService } from './services/ApiService';
+import defaultTheme from './styles/defaultTheme';
+import GlobalStyle from './styles/GlobalStyle';
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function App() {
-  // const userStore = useUserStore();
   const [accessToken] = useLocalStorage('accessToken', '');
 
   const userStore = useUserStore();
@@ -32,26 +41,29 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <ThemeProvider theme={defaultTheme}>
       <Reset />
+      <GlobalStyle />
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route
-          path="/products/:id"
-          element={<ProductDetail />}
-        />
-        <Route path="/order" element={<OrderPage />} />
-        <Route path="/orders" element={<OrderHistoriesPage />} />
-        <Route
-          path="/orders/:id"
-          element={<OrderHistoryDetail />}
-        />
-        <Route path="/welcome" element={<WelcomePage />} />
-      </Routes>
-    </div>
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route
+            path="/products/:id"
+            element={<ProductDetail />}
+          />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/orders" element={<OrderHistoriesPage />} />
+          <Route
+            path="/orders/:id"
+            element={<OrderHistoryDetail />}
+          />
+          <Route path="/welcome" element={<WelcomePage />} />
+        </Routes>
+      </Wrapper>
+    </ThemeProvider>
   );
 }
