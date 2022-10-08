@@ -6,6 +6,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import OrderHistoryDetail from './components/OrderHistoryDetail';
 import ProductDetail from './components/ProductDetail';
+import ProductsBanner from './components/ProductsBanner';
 import useUserStore from './hooks/useUserStore';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -45,6 +46,7 @@ export default function App() {
       <Reset />
       <GlobalStyle />
       <Header />
+      <ProductsBanner />
       <Wrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />
