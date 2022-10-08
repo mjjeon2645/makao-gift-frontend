@@ -5,8 +5,8 @@ import numberFormat from '../utils/numberFormat';
 export default function ProductsList() {
   const productStore = useProductStore();
 
-  const { products } = productStore;
-  const { totalPageNumbers } = productStore;
+  // const { products } = productStore;
+  const { products, productsTotalPageNumbers } = productStore;
 
   // const location = useLocation();
 
@@ -43,7 +43,7 @@ export default function ProductsList() {
           </ul>
           <div>
             <ul>
-              {totalPageNumbers.map((number) => (
+              {productsTotalPageNumbers.map((number) => (
                 <li key={number}>
                   <button type="button" onClick={() => handlePageNumberClick(number)}>
                     {number}

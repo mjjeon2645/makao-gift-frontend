@@ -74,8 +74,20 @@ export default class ApiService {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
-
     return data;
+  }
+
+  async requestHistoriesChangePage(number) {
+    const url = `${baseUrl}/orders`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      params: {
+        page: number,
+      },
+    });
+    return data.orderHistories;
   }
 
   async requestOrderHistory(id) {

@@ -8,13 +8,15 @@ export default class ProductStore {
     this.products = [];
     this.product = {};
 
-    this.totalPageNumbers = [];
+    this.productsTotalPageNumbers = [];
 
     this.volume = 1;
     this.totalPrice = 0;
 
     this.orderHistories = [];
     this.orderHistory = {};
+
+    this.historiesTotalPageNumbers = [];
 
     this.amountState = '';
 
@@ -46,12 +48,18 @@ export default class ProductStore {
     // 이 작업이 왜 필요한거지?
     // this.products = [];
     // this.publish();
+    this.amountState = '';
     this.volume = 1;
 
     const { products, totalPageNumbers } = await apiService.fetchProducts();
     this.products = products;
-    this.totalPageNumbers = [...Array(totalPageNumbers)].map((number, index) => index + 1);
+    this.productsTotalPageNumbers = [...Array(totalPageNumbers)].map((_, index) => index + 1);
 
+    this.publish();
+  }
+
+  async changeHistoriesPageNumber(number) {
+    this.orderHistories = await apiService.requestHistoriesChangePage(number);
     this.publish();
   }
 
@@ -99,8 +107,12 @@ export default class ProductStore {
   }
 
   async fetchOrderHistories() {
-    const data = await apiService.requestOrderHistories();
-    this.orderHistories = data.orderHistories;
+    const { orderHistories, totalPageNumbers } = await apiService.requestOrderHistories();
+    this.orderHistories = orderHistories;
+
+    this.historiesTotalPageNumbers = [...Array(totalPageNumbers)]
+      .map((_, index) => index + 1);
+
     this.publish();
   }
 
