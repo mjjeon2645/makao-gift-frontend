@@ -19,6 +19,10 @@ a {
 ul {
     list-style: none;
 }
+
+button {
+    cursor: pointer;
+}
 `;
 
 export default GlobalStyle;

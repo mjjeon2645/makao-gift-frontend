@@ -91,7 +91,9 @@ export default function Header() {
                 <Link to="/orders">주문조회</Link>
               </li>
             ) : (
-              <Link to="/login">주문조회</Link>
+              <li>
+                <Link to="/login">주문조회</Link>
+              </li>
             )}
           </List>
         </MainMenu>
