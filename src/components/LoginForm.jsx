@@ -18,7 +18,6 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     const { userId, password } = data;
     const accessToken = await userStore.login({ userId, password });
-
     if (accessToken) {
       setAccessToken(accessToken);
 

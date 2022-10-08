@@ -36,10 +36,10 @@ export default class UserStore {
   }
 
   // 이런게 필요한건가?????
-  setAmount(amount) {
-    this.amount = amount;
-    this.publish();
-  }
+  // setAmount(amount) {
+  //   this.amount = amount;
+  //   this.publish();
+  // }
 
   async login({ userId, password }) {
     try {
@@ -51,6 +51,7 @@ export default class UserStore {
       this.userId = userId;
       this.name = name;
       this.amount = amount;
+
       this.publish();
 
       return accessToken;
@@ -59,6 +60,13 @@ export default class UserStore {
       this.changeLoginState('error', { errorMessage: message });
       return '';
     }
+  }
+
+  async fetchBalance() {
+    const { balance } = await apiService.fetchBalance();
+    this.amount = balance;
+
+    this.publish();
   }
 
   async signUp({

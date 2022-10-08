@@ -16,33 +16,25 @@ import WelcomePage from './pages/WelcomePage';
 import { apiService } from './services/ApiService';
 
 export default function App() {
-  const userStore = useUserStore();
+  // const userStore = useUserStore();
   const [accessToken] = useLocalStorage('accessToken', '');
 
-  const { amount } = userStore;
+  const userStore = useUserStore();
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);
   }, [accessToken]);
 
-  // useEffect(() => {
-  //   apiService.setAmount(amount);
-  // }, [amount]);
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('accessToken')) {
-  //     apiService.setAccessToken(accessToken);
-  //   }
-
-  //   if (!localStorage.getItem('accessToken')) {
-  //     navigate('/');
-  //   }
-  // }, [accessToken]);
+  useEffect(() => {
+    if (accessToken) {
+      userStore.fetchBalance();
+    }
+  }, []);
 
   return (
     <div>
       <Reset />
-      <Header amount={amount} />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />

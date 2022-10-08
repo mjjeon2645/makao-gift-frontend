@@ -96,12 +96,11 @@ export default class ProductStore {
     const { volume } = this;
     const { totalPrice } = this;
 
-    // TODO. 여기서 오더를 때리면 나오는 반환값이 '변경된 잔액'임. 얘를 어떻게 유저의 amount와 연동시킬것인가.
-    const data = await apiService.requestOrder({
+    await apiService.requestOrder({
       receiver, address, message, productId, volume, totalPrice,
     });
 
-    userStore.setAmount(data.amount);
+    userStore.fetchBalance();
 
     this.publish();
   }

@@ -20,6 +20,16 @@ export default class ApiService {
     return data;
   }
 
+  async fetchBalance() {
+    const url = `${baseUrl}/session/me`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    return data;
+  }
+
   async requestSignUp({
     name, userId, password, checkPassword,
   }) {

@@ -35,122 +35,122 @@ afterAll(() => {
 
 const context = describe;
 
-describe('GiftshopStore => login', () => {
-  let giftshopStore;
+describe('UserStore => login', () => {
+  let userStore;
 
   beforeEach(() => {
-    giftshopStore = new UserStore();
+    userStore = new UserStore();
   });
 
   describe('login', () => {
     context('정확한 id, password로 로그인', () => {
       it('로그인 성공', async () => {
-        await giftshopStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE' });
+        await userStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE' });
 
-        expect(giftshopStore.name).toBe('전민지');
-        expect(giftshopStore.amount).toBe(50_000);
+        expect(userStore.name).toBe('전민지');
+        expect(userStore.amount).toBe(50_000);
       });
     });
 
     context('id가 틀렸을 때', () => {
       it('로그인 실패', async () => {
-        await giftshopStore.login({ userId: 'xxx', password: '123!@#qweQWE' });
+        await userStore.login({ userId: 'xxx', password: '123!@#qweQWE' });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
 
     context('password가 틀렸을 때', () => {
       it('로그인 실패', async () => {
-        await giftshopStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE!' });
+        await userStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE!' });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
   });
 });
 
-describe('GiftshopStore => signUp', () => {
-  let giftshopStore;
+describe('UserStore => signUp', () => {
+  let userStore;
 
   beforeEach(() => {
-    giftshopStore = new UserStore();
+    userStore = new UserStore();
   });
 
   describe('signUp', () => {
     context('조건에 맞는 id, 이름, 패스워드, 체크페스워드 입력', () => {
       it('회원가입 성공', async () => {
-        await giftshopStore.signUp({
+        await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE',
         });
-        expect(giftshopStore.name).toBe('전민지');
-        expect(giftshopStore.userId).toBe('mjjeon2645');
-        expect(giftshopStore.amount).toBe(50_000);
+        expect(userStore.name).toBe('전민지');
+        expect(userStore.userId).toBe('mjjeon2645');
+        expect(userStore.amount).toBe(50_000);
       });
     });
 
     context('이름이 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await giftshopStore.signUp({
+        await userStore.signUp({
           name: '전민지123',
           userId: 'mjjeon2645',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE',
         });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.userId).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.userId).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
 
     context('아이디가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await giftshopStore.signUp({
+        await userStore.signUp({
           name: '전민지',
           userId: 'abc',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE',
         });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.userId).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.userId).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
 
     context('비밀번호가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await giftshopStore.signUp({
+        await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
           password: '1234',
           checkPassword: '1234',
         });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.userId).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.userId).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
 
     context('체크 비밀번호가 비밀번호와 같지 않지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await giftshopStore.signUp({
+        await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE!',
         });
 
-        expect(giftshopStore.name).toBeFalsy();
-        expect(giftshopStore.userId).toBeFalsy();
-        expect(giftshopStore.amount).toBeFalsy();
+        expect(userStore.name).toBeFalsy();
+        expect(userStore.userId).toBeFalsy();
+        expect(userStore.amount).toBeFalsy();
       });
     });
   });
