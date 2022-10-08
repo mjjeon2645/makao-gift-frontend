@@ -2,7 +2,70 @@
 import { watch } from 'fs';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import useUserStore from '../hooks/useUserStore';
+
+const Wrapper = styled.div`
+ width: 25%;
+ text-align: center;
+`;
+
+const Title = styled.h2`
+  font-size: 2em;
+  font-weight: bold;
+  border-bottom: 1px solid #83e8ca;
+  margin-bottom: 1.5em;
+  padding-bottom: .3em;
+`;
+
+const Form = styled.form`
+  input {
+    display: block;
+    width: 100%;
+    padding-block: 1em;
+    padding-inline: 1em;
+    margin-bottom: .7em;
+    border: 1px solid #EEEEEE;
+  }
+
+  input:focus {
+    outline: 1px solid #42deb6;
+    }
+`;
+
+const Field = styled.div`
+  margin-bottom: 2em;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  color: #A0A0A0;
+  display: block;
+  text-align: left;
+  margin-bottom: .5em;
+`;
+
+const Message = styled.p`
+  font-size: .9em;
+  text-align: left;
+  color: #A0A0A0;
+`;
+
+const Error = styled.p`
+  font-size: 0.9em;
+  text-align: left;
+  color: #ff0000;
+`;
+
+const Signup = styled.button`
+  color: ${(props) => props.theme.primaryButton.text};
+  background: ${(props) => props.theme.primaryButton.background};
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 1.2em 2.8em;
+  margin-top: 1em;
+`;
 
 export default function SignUpForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
@@ -39,11 +102,11 @@ export default function SignUpForm() {
   };
 
   return (
-    <div>
-      <h2>SIGN UP</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="input-name">이름 :</label>
+    <Wrapper>
+      <Title>SIGN UP</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Field>
+          <Label htmlFor="input-name">이름 :</Label>
           <input
             id="input-name"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -56,12 +119,12 @@ export default function SignUpForm() {
             )}
           />
           {errors.name ? (
-            <p>{errors.name.message}</p>
+            <Error>{errors.name.message}</Error>
           )
-            : <p>3~7자까지 한글만 사용 가능</p>}
-        </div>
-        <div>
-          <label htmlFor="input-id">아이디 :</label>
+            : <Message>3~7자까지 한글만 사용 가능</Message>}
+        </Field>
+        <Field>
+          <Label htmlFor="input-id">아이디 :</Label>
           <input
             id="input-id"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -74,14 +137,14 @@ export default function SignUpForm() {
             )}
           />
           {userStore.isUserIdDuplicated ? (
-            <p>{userStore.errorMessage}</p>
+            <Error>{userStore.errorMessage}</Error>
           ) : errors.userId ? (
-            <p>{errors.userId.message}</p>
+            <Error>{errors.userId.message}</Error>
           )
-            : <p>영문소문자/숫자, 4~16자만 사용 가능</p>}
-        </div>
-        <div>
-          <label htmlFor="input-password">비밀번호 :</label>
+            : <Message>영문소문자/숫자, 4~16자만 사용 가능</Message>}
+        </Field>
+        <Field>
+          <Label htmlFor="input-password">비밀번호 :</Label>
           <input
             id="input-password"
             type="password"
@@ -98,12 +161,12 @@ export default function SignUpForm() {
             )}
           />
           {errors.password ? (
-            <p>{errors.password.message}</p>
+            <Error>{errors.password.message}</Error>
           )
-            : <p>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</p>}
-        </div>
-        <div>
-          <label htmlFor="input-check-password">비밀번호 확인 :</label>
+            : <Message>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</Message>}
+        </Field>
+        <Field>
+          <Label htmlFor="input-check-password">비밀번호 확인 :</Label>
           <input
             id="input-check-password"
             type="password"
@@ -120,13 +183,13 @@ export default function SignUpForm() {
             )}
           />
           {userStore.isCheckPasswordRight ? (
-            <p>{userStore.errorMessage}</p>)
+            <Error>{userStore.errorMessage}</Error>)
             : errors.checkPassword ? (
-              <p>{errors.checkPassword.message}</p>
+              <Error>{errors.checkPassword.message}</Error>
             ) : null}
-        </div>
-        <button type="submit">회원가입</button>
-      </form>
-    </div>
+        </Field>
+        <Signup type="submit">회원가입</Signup>
+      </Form>
+    </Wrapper>
   );
 }
