@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
-import useGiftshopStore from '../hooks/useGiftshopStore';
+import useUserStore from '../hooks/useUserStore';
+import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function ProductDetail() {
-  const giftshopStore = useGiftshopStore();
+  const userStore = useUserStore();
+
+  const productStore = useProductStore();
 
   const [accessToken] = useLocalStorage('accessToken', '');
 
@@ -16,19 +19,19 @@ export default function ProductDetail() {
   const { id } = location.state;
 
   useEffect(() => {
-    giftshopStore.fetchProduct(id);
+    productStore.fetchProduct(id);
   }, []);
 
-  const detail = giftshopStore.product;
+  const detail = productStore.product;
 
   // TODO. volume이 1일때 disabled 마이너스 이미지.
   // TODO. volume이 2이상일때 enabled 마이너스 이미지.
   const handleMinusClick = () => {
-    giftshopStore.decreaseVolume();
+    productStore.decreaseVolume();
   };
 
   const handlePlusClick = () => {
-    giftshopStore.increaseVolume();
+    productStore.increaseVolume();
   };
 
   const handleOrderClick = () => {
@@ -36,12 +39,12 @@ export default function ProductDetail() {
       navigate('/login', { state: { id } });
     }
     if (accessToken) {
-      if (giftshopStore.amount < giftshopStore.totalPrice) {
-        giftshopStore.changeAmountState('low');
+      if (userStore.amount < productStore.totalPrice) {
+        productStore.changeAmountState('low');
         return;
       }
 
-      giftshopStore.changeAmountState('');
+      productStore.changeAmountState('');
       navigate('/order', { state: { id } });
     }
   };
@@ -62,14 +65,14 @@ export default function ProductDetail() {
         <div>
           <p>구매수량</p>
           <div>
-            {giftshopStore.volume === 1 ? (
-              <button type="button" disabled={giftshopStore.volume === 1}>비-</button>
+            {productStore.volume === 1 ? (
+              <button type="button" disabled={productStore.volume === 1}>비-</button>
             ) : (
               <button type="button" onClick={handleMinusClick}>
                 활-
               </button>
             )}
-            <p>{giftshopStore.volume}</p>
+            <p>{productStore.volume}</p>
             <button type="button" onClick={handlePlusClick}>+</button>
           </div>
         </div>
@@ -80,12 +83,12 @@ export default function ProductDetail() {
         <div>
           <p>총 상품금액&#58;</p>
           <p>
-            {numberFormat(giftshopStore.totalPrice)}
+            {numberFormat(productStore.totalPrice)}
             원
           </p>
         </div>
         <button type="button" onClick={handleOrderClick}>선물하기</button>
-        {giftshopStore.isLowAmount ? (
+        {productStore.isLowAmount ? (
           <p>❌잔액이 부족하여 선물하기가 불가합니다❌</p>
         ) : (
           ''

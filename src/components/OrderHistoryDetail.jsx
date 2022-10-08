@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import useGiftshopStore from '../hooks/useGiftshopStore';
+import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 // TODO. 여기에다가 '뒤로가기' 버튼 주는게 어떨까?
@@ -8,11 +8,11 @@ export default function OrderHistoryDetail() {
   const location = useLocation();
   const { id } = location.state;
 
-  const giftshopStore = useGiftshopStore();
-  const { orderHistory } = giftshopStore;
+  const productStore = useProductStore();
+  const { orderHistory } = productStore;
 
   useEffect(() => {
-    giftshopStore.fetchOrderHistory(id);
+    productStore.fetchOrderHistory(id);
   }, []);
 
   return (

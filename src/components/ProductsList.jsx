@@ -1,10 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { giftshopStore } from '../stores/GiftshopStore';
+import { useNavigate } from 'react-router-dom';
+import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function ProductsList() {
-  const { products } = giftshopStore;
-  const { totalPageNumbers } = giftshopStore;
+  const productStore = useProductStore();
+
+  const { products } = productStore;
+  const { totalPageNumbers } = productStore;
 
   // const location = useLocation();
 
@@ -15,7 +17,7 @@ export default function ProductsList() {
   };
 
   const handlePageNumberClick = (number) => {
-    giftshopStore.changePageNumber(number);
+    productStore.changePageNumber(number);
     navigate(`/products?page=${number}`);
   };
 

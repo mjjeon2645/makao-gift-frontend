@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import OrderHistoryDetail from './OrderHistoryDetail';
 
 test('OrderHistoryDetail', () => {
-  render(<OrderHistoryDetail />);
+  render(
+    <MemoryRouter>
+      <OrderHistoryDetail />
+    </MemoryRouter>,
+  );
 
   screen.getByText('구매수량');
 

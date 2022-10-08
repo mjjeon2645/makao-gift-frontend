@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import OrderForm from './OrderForm';
 
 test('OrderForm', () => {
   render(
-    <OrderForm />,
+    <MemoryRouter>
+      <OrderForm />
+    </MemoryRouter>
+    ,
   );
 
   screen.getByLabelText('받는 분 성함');

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import ProductsBanner from '../components/ProductsBanner';
 import ProductsList from '../components/ProductsList';
-import useGiftshopStore from '../hooks/useGiftshopStore';
+import useProductStore from '../hooks/useProductStore';
 
 export default function ProductsPage() {
-  const giftshopStore = useGiftshopStore();
+  const productStore = useProductStore();
 
   useEffect(() => {
-    giftshopStore.fetchProducts();
+    productStore.fetchProducts();
   }, []);
 
   return (

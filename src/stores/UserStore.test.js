@@ -1,5 +1,5 @@
 import server from '../testServer';
-import GiftshopStore from './GiftshopStore';
+import UserStore from './UserStore';
 
 // 1. apiService 직접모킹
 // jest.mock('../services/ApiService', () => ({
@@ -39,7 +39,7 @@ describe('GiftshopStore => login', () => {
   let giftshopStore;
 
   beforeEach(() => {
-    giftshopStore = new GiftshopStore();
+    giftshopStore = new UserStore();
   });
 
   describe('login', () => {
@@ -76,7 +76,7 @@ describe('GiftshopStore => signUp', () => {
   let giftshopStore;
 
   beforeEach(() => {
-    giftshopStore = new GiftshopStore();
+    giftshopStore = new UserStore();
   });
 
   describe('signUp', () => {

@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
-import useGiftshopStore from '../hooks/useGiftshopStore';
-import { giftshopStore } from '../stores/GiftshopStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function Header({ amount }) {

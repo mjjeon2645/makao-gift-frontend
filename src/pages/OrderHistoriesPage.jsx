@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import OrderHistoriesList from '../components/OrderHistoriesList';
-import useGiftshopStore from '../hooks/useGiftshopStore';
+import useProductStore from '../hooks/useProductStore';
 
 export default function OrderHistoriesPage() {
-  const giftshopStore = useGiftshopStore();
+  const productStore = useProductStore();
 
   useEffect(() => {
-    giftshopStore.fetchOrderHistories();
+    productStore.fetchOrderHistories();
   }, []);
 
   return (

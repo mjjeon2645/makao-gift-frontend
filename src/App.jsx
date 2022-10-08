@@ -5,6 +5,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import OrderHistoryDetail from './components/OrderHistoryDetail';
 import ProductDetail from './components/ProductDetail';
+import useUserStore from './hooks/useUserStore';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import OrderHistoriesPage from './pages/OrderHistoriesPage';
@@ -13,12 +14,12 @@ import ProductsPage from './pages/ProductsPage';
 import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
 import { apiService } from './services/ApiService';
-import { giftshopStore } from './stores/GiftshopStore';
 
 export default function App() {
+  const userStore = useUserStore();
   const [accessToken] = useLocalStorage('accessToken', '');
 
-  const { amount } = giftshopStore;
+  const { amount } = userStore;
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);

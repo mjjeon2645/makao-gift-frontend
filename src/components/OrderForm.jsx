@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import useGiftshopStore from '../hooks/useGiftshopStore';
+import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 export default function OrderForm() {
-  const giftshopStore = useGiftshopStore();
+  const productStore = useProductStore();
 
   const navigate = useNavigate();
 
@@ -13,14 +13,14 @@ export default function OrderForm() {
   // 이거 필요한가?
   // const productId = state.id;
 
-  const { name, manufacturer } = giftshopStore.product;
+  const { name, manufacturer } = productStore.product;
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     const { receiver, address, message } = data;
 
-    await giftshopStore.order({ receiver, address, message });
+    await productStore.order({ receiver, address, message });
 
     // TODO. 주문조회 매뉴로 이동. 내 주문내역이 업데이트 되어 뿌려져야 함
     navigate('/orders');
@@ -34,12 +34,12 @@ export default function OrderForm() {
         <p>
           구매수량&#58;
           {' '}
-          {giftshopStore.volume}
+          {productStore.volume}
         </p>
         <p>
           총 상품금액&#58;
           {' '}
-          {numberFormat(giftshopStore.totalPrice)}
+          {numberFormat(productStore.totalPrice)}
           원
         </p>
       </div>
