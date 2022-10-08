@@ -12,7 +12,26 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.article`
-  
+  p:first-child {
+    color: #FCBF2C;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  h2 {
+    margin: 1.5em 0em;
+  }
+
+  h2 strong {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: .2em;
+  }
+
+  p:last-child {
+    font-weight: bold;
+  }
 `;
 
 const Image = styled.img`
