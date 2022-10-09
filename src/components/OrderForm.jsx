@@ -8,12 +8,7 @@ export default function OrderForm() {
 
   const navigate = useNavigate();
 
-  // const { state } = useLocation();
-
-  // 이거 필요한가?
-  // const productId = state.id;
-
-  const { name, manufacturer } = productStore.product;
+  const { name, manufacturer, imgSource } = productStore.product;
 
   const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
@@ -22,13 +17,13 @@ export default function OrderForm() {
 
     await productStore.order({ receiver, address, message });
 
-    // TODO. 주문조회 매뉴로 이동. 내 주문내역이 업데이트 되어 뿌려져야 함
     navigate('/orders');
   };
 
   return (
     <div>
       <div>
+        <img src={imgSource} alt="" />
         <p>{manufacturer}</p>
         <p>{name}</p>
         <p>
@@ -45,7 +40,7 @@ export default function OrderForm() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="input-receiver">받는 분 성함</label>
+          <label htmlFor="input-receiver">받는 분 성함*</label>
           <input
             id="input-receiver"
             maxLength="7"
@@ -65,7 +60,7 @@ export default function OrderForm() {
           )}
         </div>
         <div>
-          <label htmlFor="input-address">받는 분 주소</label>
+          <label htmlFor="input-address">받는 분 주소*</label>
           <input
             id="input-address"
             // eslint-disable-next-line react/jsx-props-no-spreading
