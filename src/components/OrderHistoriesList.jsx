@@ -1,5 +1,18 @@
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import useProductStore from '../hooks/useProductStore';
+
+const Wrapper = styled.div`
+  width: 70%;
+`;
+
+const None = styled.h2`
+  font-weight: bold;
+  /* text-align: center; */
+  position: absolute;
+  top: 30%;
+  left: 45%;
+`;
 
 export default function OrderHistoriesList() {
   const productStore = useProductStore();
@@ -17,9 +30,9 @@ export default function OrderHistoriesList() {
   };
 
   return (
-    <div>
+    <Wrapper>
       {orderHistories.length === 0 ? (
-        <h2>내가 주문한 내역이 없습니다</h2>
+        <None>내가 주문한 내역이 없습니다</None>
       ) : (
         <>
           <div>
@@ -53,6 +66,6 @@ export default function OrderHistoriesList() {
           </div>
         </>
       )}
-    </div>
+    </Wrapper>
   );
 }

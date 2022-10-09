@@ -46,7 +46,7 @@ export default function App() {
       <Reset />
       <GlobalStyle />
       <Header />
-      <ProductsBanner />
+      {/* <ProductsBanner /> */}
       <Wrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />
