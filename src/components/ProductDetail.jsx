@@ -158,7 +158,13 @@ const Button = styled.button`
   width: 100%;
   padding: 1.2em 2.8em;
   margin-top: 1em;
+`;
 
+const Error = styled.p`
+  font-weight: bold;
+  color: #ff0000;
+  text-align: center;
+  margin-top: 2em;
 `;
 
 export default function ProductDetail() {
@@ -252,7 +258,7 @@ export default function ProductDetail() {
         </TotalPriceSection>
         <Button type="button" onClick={handleOrderClick}>선물하기</Button>
         {productStore.isLowAmount ? (
-          <p>❌잔액이 부족하여 선물하기가 불가합니다❌</p>
+          <Error>❌잔액이 부족하여 선물하기가 불가합니다❌</Error>
         ) : (
           ''
         )}
