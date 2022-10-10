@@ -8,7 +8,8 @@ const Container = styled.div`
   width: 70%;  
   border: 1px solid #EEEEEE;
   border-radius: 10px;
-  padding: 3em 5em;
+  padding: 3em 10em;
+  margin-top: 5em;
 `;
 
 const Wrapper = styled.div`

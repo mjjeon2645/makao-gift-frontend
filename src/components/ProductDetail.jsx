@@ -11,7 +11,7 @@ import PlusBlack from '../assets/images/plus-black.png';
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-bottom: 10em;
+  padding-top: 10em;
   display: flex;
   justify-content: center;
 `;

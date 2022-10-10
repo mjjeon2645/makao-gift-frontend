@@ -8,6 +8,7 @@ import useUserStore from '../hooks/useUserStore';
 const Wrapper = styled.div`
  width: 25%;
  text-align: center;
+ margin-top: 10em;
 `;
 
 const Title = styled.h2`

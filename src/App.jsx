@@ -20,7 +20,7 @@ import defaultTheme from './styles/defaultTheme';
 import GlobalStyle from './styles/GlobalStyle';
 
 const Wrapper = styled.div`
-  min-height: 100vh;
+  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,6 @@ export default function App() {
       <Reset />
       <GlobalStyle />
       <Header />
-      {/* <ProductsBanner /> */}
       <Wrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />

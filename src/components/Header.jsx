@@ -9,7 +9,6 @@ import useProductStore from '../hooks/useProductStore';
 const Container = styled.header`
   border-bottom: 1px solid #D9D9D9;
   height: 4em;
-  
 `;
 
 const Wrapper = styled.div`
