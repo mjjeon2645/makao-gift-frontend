@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   text-align: center;
+  padding-inline: calc((100% - 400px) / 2);
   margin-top: 10em;
 `;
 

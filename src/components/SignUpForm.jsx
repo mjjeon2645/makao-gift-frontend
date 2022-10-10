@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import useUserStore from '../hooks/useUserStore';
 
 const Wrapper = styled.div`
- width: 25%;
+ width: 100%;
  text-align: center;
+ padding-inline: calc((100% - 400px) / 2);
  margin-top: 10em;
 `;
 

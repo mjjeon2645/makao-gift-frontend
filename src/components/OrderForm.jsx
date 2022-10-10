@@ -5,11 +5,11 @@ import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
-  width: 70%;  
   border: 1px solid #EEEEEE;
   border-radius: 10px;
   padding: 3em 10em;
-  margin-top: 5em;
+  margin: 5em 15em 5em 15em;
+  /* margin-top: 5em; */
 `;
 
 const Wrapper = styled.div`

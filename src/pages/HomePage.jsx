@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  width: 45%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding-top: 15em;
+  padding-inline: calc((100% - 700px) / 2);
+  padding-top: 12em;
 `;
 
 const Title = styled.article`

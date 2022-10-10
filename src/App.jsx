@@ -19,10 +19,10 @@ import defaultTheme from './styles/defaultTheme';
 import GlobalStyle from './styles/GlobalStyle';
 
 const Wrapper = styled.div`
-  /* height: 100%; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* min-height: 100vh; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 `;
 
 export default function App() {

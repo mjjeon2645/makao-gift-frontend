@@ -8,8 +8,9 @@ import useUserStore from '../hooks/useUserStore';
 // TODO. 에러 시 붉은색으로 input 테두리 만들어야 함
 
 const Wrapper = styled.div`
- width: 25%;
+ width: 100%;
  text-align: center;
+ padding-inline: calc((100% - 400px) / 2);
  margin-top: 10em;
 `;
 
