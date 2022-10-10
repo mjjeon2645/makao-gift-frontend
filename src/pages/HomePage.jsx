@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  width: 45%;
+  justify-content: space-between;
   align-items: center;
   padding-top: 15em;
 `;
@@ -31,7 +32,7 @@ const Title = styled.article`
 `;
 
 const Image = styled.img`
-  width: 15em;
+  width: 20em;
 `;
 
 export default function HomePage() {

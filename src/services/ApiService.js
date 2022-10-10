@@ -44,8 +44,8 @@ export default class ApiService {
   async fetchProducts() {
     const url = `${baseUrl}/products`;
     const { data } = await axios.get(url);
+    console.log(data);
     const { products, totalPageNumbers } = data;
-
     return { products, totalPageNumbers };
   }
 
@@ -53,6 +53,7 @@ export default class ApiService {
     const url = `${baseUrl}/products`;
     const params = { page: number };
     const { data } = await axios.get(url, { params });
+
     return data.products;
   }
 

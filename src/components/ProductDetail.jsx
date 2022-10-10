@@ -186,8 +186,6 @@ export default function ProductDetail() {
 
   const detail = productStore.product;
 
-  // TODO. volume이 1일때 disabled 마이너스 이미지.
-  // TODO. volume이 2이상일때 enabled 마이너스 이미지.
   const handleMinusClick = () => {
     productStore.decreaseVolume();
   };

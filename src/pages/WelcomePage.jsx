@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   text-align: center;
+  margin-top: 10em;
 `;
 
 const Title = styled.h2`
