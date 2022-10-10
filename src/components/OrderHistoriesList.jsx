@@ -139,7 +139,7 @@ export default function OrderHistoriesList() {
                   </ImageBox>
                   <TextBox>
                     <p>{orderHistory.manufacturer}</p>
-                    <p>{orderHistory.productName}</p>
+                    <p className="name">{orderHistory.productName}</p>
                     <strong>
                       To.
                       {' '}
