@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -22,21 +23,19 @@ const Title = styled.h2`
   padding-bottom: .3em;
 `;
 
-const Form = styled.form`
-  input {
+const Input = styled.input`
     display: block;
     width: 100%;
     padding-block: 1em;
     padding-inline: 1em;
     margin-bottom: .7em;
-    border: 1px solid #EEEEEE;
-  }
+    border: ${(props) => (props.error ? '1px solid #F00' : '1px solid #EEEEEE')};
 
-  input::placeholder {
-     color: #CBCBCB;
-   }
+    ::placeholder {
+      color: #CBCBCB;
+    }
 
-  input:focus {
+    :focus {
     outline: 1px solid #42deb6;
     }
 `;
@@ -98,27 +97,27 @@ export default function LoginForm() {
   return (
     <Wrapper>
       <Title>USER LOGIN</Title>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <input
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
           id="input-user-id"
           name="user-id"
           placeholder="아이디"
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'userId',
             { required: { value: true, message: '아이디를 입력해주세요' } },
           )}
+          error={errors.userId}
         />
-        <input
+        <Input
           id="input-password"
           name="password"
           type="password"
           placeholder="비밀번호"
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'password',
             { required: { value: true, message: '비밀번호를 입력해주세요' } },
           )}
+          error={errors.password}
         />
         {errors.userId ? (
           <Error>{errors.userId.message}</Error>
@@ -131,7 +130,7 @@ export default function LoginForm() {
             )
               : ''}
         <Login type="submit">로그인하기</Login>
-      </Form>
+      </form>
       <Signup type="button" onClick={handleSignupClick}>회원가입</Signup>
     </Wrapper>
   );

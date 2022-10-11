@@ -20,23 +20,21 @@ const Title = styled.h2`
   padding-bottom: .3em;
 `;
 
-const Form = styled.form`
-  input {
-    display: block;
-    width: 100%;
-    padding-block: 1em;
-    padding-inline: 1em;
-    margin-bottom: .7em;
-    border: 1px solid #EEEEEE;
-  }
-
-  input:focus {
-    outline: 1px solid #42deb6;
-    }
-`;
-
 const Field = styled.div`
   margin-bottom: 2em;
+`;
+
+const Input = styled.input`
+  display: block;
+  width: 100%;
+  padding-block: 1em;
+  padding-inline: 1em;
+  margin-bottom: .7em;
+  border: ${(props) => (props.error ? '1px solid #F00' : '1px solid #EEEEEE')};
+
+  :focus {
+    outline: 1px solid #42deb6;
+    }
 `;
 
 const Label = styled.label`
@@ -106,10 +104,10 @@ export default function SignUpForm() {
   return (
     <Wrapper>
       <Title>SIGN UP</Title>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Field>
           <Label htmlFor="input-name">이름 :</Label>
-          <input
+          <Input
             id="input-name"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register(
@@ -119,6 +117,7 @@ export default function SignUpForm() {
                 pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '이름을 다시 확인해주세요' },
               },
             )}
+            error={errors.name}
           />
           {errors.name ? (
             <Error>{errors.name.message}</Error>
@@ -127,7 +126,7 @@ export default function SignUpForm() {
         </Field>
         <Field>
           <Label htmlFor="input-id">아이디 :</Label>
-          <input
+          <Input
             id="input-id"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register(
@@ -137,6 +136,7 @@ export default function SignUpForm() {
                 pattern: { value: /^[a-z0-9]{4,16}$/, message: '아이디를 다시 확인해주세요' },
               },
             )}
+            error={errors.userId}
           />
           {userStore.isUserIdDuplicated ? (
             <Error>{userStore.errorMessage}</Error>
@@ -147,7 +147,7 @@ export default function SignUpForm() {
         </Field>
         <Field>
           <Label htmlFor="input-password">비밀번호 :</Label>
-          <input
+          <Input
             id="input-password"
             type="password"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -161,6 +161,7 @@ export default function SignUpForm() {
                 },
               },
             )}
+            error={errors.password}
           />
           {errors.password ? (
             <Error>{errors.password.message}</Error>
@@ -169,7 +170,7 @@ export default function SignUpForm() {
         </Field>
         <Field>
           <Label htmlFor="input-check-password">비밀번호 확인 :</Label>
-          <input
+          <Input
             id="input-check-password"
             type="password"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -183,6 +184,7 @@ export default function SignUpForm() {
                 },
               },
             )}
+            error={errors.checkPassword}
           />
           {userStore.isCheckPasswordRight ? (
             <Error>{userStore.errorMessage}</Error>)
@@ -191,7 +193,7 @@ export default function SignUpForm() {
             ) : null}
         </Field>
         <Signup type="submit">회원가입</Signup>
-      </Form>
+      </form>
     </Wrapper>
   );
 }

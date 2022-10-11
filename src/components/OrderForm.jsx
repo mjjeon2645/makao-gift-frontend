@@ -55,24 +55,6 @@ const AmountAndTotalPrice = styled.div`
 `;
 
 const Form = styled.form`
-  input {
-    display: block;
-    width: 100%;
-    padding-block: 1em;
-    padding-inline: 1em;
-    margin-top: .7em;
-    margin-bottom: .7em;
-    border: 1px solid #EEEEEE;
-  }
-
-  input::placeholder {
-     color: #CBCBCB;
-   }
-
-  input:focus {
-    outline: 1px solid #42deb6;
-    }
-
   div {
     margin-bottom: 1.5em;
   }
@@ -85,6 +67,20 @@ const Label = styled.label`
   strong {
     color: #ff0000;
   }
+`;
+
+const Input = styled.input`
+  display: block;
+  width: 100%;
+  padding-block: 1em;
+  padding-inline: 1em;
+  margin-top: .7em;
+  margin-bottom: .7em;
+  border: ${(props) => (props.error ? '1px solid #F00' : '1px solid #EEEEEE')};
+  
+  :focus {
+    outline: 1px solid #42deb6;
+    }
 `;
 
 const SubLabel = styled.p`
@@ -173,7 +169,7 @@ export default function OrderForm() {
             받는 분 성함
             <strong>*</strong>
           </Label>
-          <input
+          <Input
             id="input-receiver"
             maxLength="7"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -184,6 +180,7 @@ export default function OrderForm() {
                 pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '성함을 다시 확인해주세요' },
               },
             )}
+            error={errors.receiver}
           />
           {errors.receiver ? (
             <Error>{errors.receiver.message}</Error>
@@ -196,10 +193,11 @@ export default function OrderForm() {
             받는 분 주소
             <strong>*</strong>
           </Label>
-          <input
+          <Input
             id="input-address"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register('address', { required: { value: true, message: '주소를 입력해주세요' } })}
+            error={errors.address}
           />
           {errors.address ? (
             <Error>{errors.address.message}</Error>
