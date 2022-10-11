@@ -199,7 +199,6 @@ export default function ProductDetail() {
       navigate('/login', { state: { id } });
     }
     if (accessToken) {
-      // if (userStore.amount < productStore.totalPrice) {
       if (userStore.amount < productStore.totalPrice) {
         productStore.changeAmountState('low');
         return;

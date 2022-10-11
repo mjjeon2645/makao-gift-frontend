@@ -80,7 +80,7 @@ describe('UserStore => signUp', () => {
   });
 
   describe('signUp', () => {
-    context('조건에 맞는 id, 이름, 패스워드, 체크페스워드 입력', () => {
+    context('조건에 맞는 id, 이름, 패스워드, 체크패스워드 입력', () => {
       it('회원가입 성공', async () => {
         await userStore.signUp({
           name: '전민지',

@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { watch } from 'fs';
+
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -68,7 +68,9 @@ const Signup = styled.button`
 `;
 
 export default function SignUpForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm({ reValidateMode: 'onSubmit' });
 
   const userStore = useUserStore();
 
@@ -178,19 +180,24 @@ export default function SignUpForm() {
               'checkPassword',
               {
                 required: { value: true, message: '비밀번호를 입력해주세요' },
-                validated: {
-                  value: (value) => value === watch('password'),
-                  message: '비밀번호가 일치하지 않습니다',
-                },
+                // validated: {
+                //   value: (value) => value === watch('password'),
+                //   message: '비밀번호가 일치하지 않습니다',
+                // },
+                validate: (value) => value === watch('password'),
               },
             )}
             error={errors.checkPassword}
           />
-          {userStore.isCheckPasswordRight ? (
+          {/* {userStore.isCheckPasswordRight ? (
             <Error>{userStore.errorMessage}</Error>)
             : errors.checkPassword ? (
               <Error>{errors.checkPassword.message}</Error>
-            ) : null}
+            ) : null} */}
+          {errors.checkPassword ? (
+            <Error>비밀번호가 일치하지 않습니다</Error>
+          )
+            : null}
         </Field>
         <Signup type="submit">회원가입</Signup>
       </form>
