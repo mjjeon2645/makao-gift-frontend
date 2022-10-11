@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { useLocalStorage } from 'usehooks-ts';
+
+const loginUrl = 'https://user-images.githubusercontent.com/104840243/194979940-f4d432c9-79a3-4277-8cc2-51b92c2a92e6.jpg';
+const noLoginUrl = 'https://user-images.githubusercontent.com/104840243/194981620-8c6d1148-3b0f-443f-b5e2-7a342b79db9c.jpg';
 
 const Container = styled.div`
+  background-image: ${(props) => (props.isLogin ? `url(${loginUrl})` : `url(${noLoginUrl})`)};
+  background-size: cover;
   display: flex;
   align-items: center;
   width: 100%;
@@ -11,7 +17,11 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   padding-inline: calc((100% - 1000px) / 2);
-
+  
+  p, strong, h2 {
+    color: white;
+  }
+  
   p:first-child {
     font-weight: bold;
     margin-bottom: 2em;
@@ -33,8 +43,10 @@ const Wrapper = styled.div`
 `;
 
 export default function ProductsBanner() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
   return (
-    <Container>
+    <Container isLogin={accessToken}>
       <Wrapper>
         <p>평범한 선물은 주기도 민망하다구요?</p>
         <h2>
