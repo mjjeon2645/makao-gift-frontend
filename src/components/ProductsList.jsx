@@ -55,6 +55,7 @@ const TextBox = styled.div`
   width: 250px;
   height: 100px;
   /* height: 200px; */
+  margin-top: 1em;
 
   p {
     margin-bottom: .3em;
@@ -95,6 +96,10 @@ const PageNumber = styled.div`
     color: #9a9a9a;
     background: none;
     border: none;
+    
+    &:focus {
+      color: #444444;
+    }
   }
 `;
 

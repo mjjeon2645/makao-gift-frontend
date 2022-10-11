@@ -44,7 +44,6 @@ export default class ApiService {
   async fetchProducts() {
     const url = `${baseUrl}/products`;
     const { data } = await axios.get(url);
-    console.log(data);
     const { products, totalPageNumbers } = data;
     return { products, totalPageNumbers };
   }

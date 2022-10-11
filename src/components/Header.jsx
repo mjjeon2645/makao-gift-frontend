@@ -21,6 +21,13 @@ const Wrapper = styled.div`
 const MainMenu = styled.nav`
   display: flex;
   height: 100%;
+
+  li a {
+    &:focus {
+      text-decoration: underline solid #22daab .2em;
+      text-underline-position: under;
+    }
+  }
 `;
 
 const List = styled.ul`
