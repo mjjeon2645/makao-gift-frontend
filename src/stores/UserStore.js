@@ -1,8 +1,9 @@
 import { apiService } from '../services/ApiService';
+import Store from './Store';
 
-export default class UserStore {
+export default class UserStore extends Store {
   constructor() {
-    this.listeners = new Set();
+    super();
 
     this.name = '';
     this.userId = '';
@@ -12,18 +13,6 @@ export default class UserStore {
     this.loginState = '';
 
     this.errorMessage = '';
-  }
-
-  subscribe(listener) {
-    this.listeners.add(listener);
-  }
-
-  unsubscribe(listener) {
-    this.listeners.delete(listener);
-  }
-
-  publish() {
-    this.listeners.forEach((listener) => listener());
   }
 
   clearUserState() {

@@ -1,25 +1,14 @@
 import { apiService } from '../services/ApiService';
+import Store from './Store';
 
-export default class OrderHistoryStore {
+export default class OrderHistoryStore extends Store {
   constructor() {
-    this.listeners = new Set();
+    super();
 
     this.orderHistories = [];
     this.orderHistory = {};
 
     this.historiesTotalPageNumbers = [];
-  }
-
-  subscribe(listener) {
-    this.listeners.add(listener);
-  }
-
-  unsubscribe(listener) {
-    this.listeners.delete(listener);
-  }
-
-  publish() {
-    this.listeners.forEach((listener) => listener());
   }
 
   clearOrderHistoryState() {

@@ -1,9 +1,10 @@
 import { apiService } from '../services/ApiService';
+import Store from './Store';
 import { userStore } from './UserStore';
 
-export default class ProductStore {
+export default class ProductStore extends Store {
   constructor() {
-    this.listeners = new Set();
+    super();
 
     this.products = [];
     this.product = {};
@@ -16,18 +17,6 @@ export default class ProductStore {
     this.amountState = '';
 
     this.errorMessage = '';
-  }
-
-  subscribe(listener) {
-    this.listeners.add(listener);
-  }
-
-  unsubscribe(listener) {
-    this.listeners.delete(listener);
-  }
-
-  publish() {
-    this.listeners.forEach((listener) => listener());
   }
 
   clearProductState() {
