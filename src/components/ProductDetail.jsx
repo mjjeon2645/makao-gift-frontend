@@ -228,16 +228,16 @@ export default function ProductDetail() {
           <Label>구매수량</Label>
           <AmountController>
             {productStore.volume === 1 ? (
-              <DisabledMinus type="button" disabled={productStore.volume === 1}>
+              <DisabledMinus type="button" name="minusgray" disabled={productStore.volume === 1}>
                 <img src={MinusGray} alt="" />
               </DisabledMinus>
             ) : (
-              <EnabledMinus type="button" onClick={handleMinusClick}>
+              <EnabledMinus type="button" name="minusblack" onClick={handleMinusClick}>
                 <img src={MinusBlack} alt="" />
               </EnabledMinus>
             )}
             <p>{productStore.volume}</p>
-            <Plus type="button" onClick={handlePlusClick}>
+            <Plus type="button" name="plusblack" onClick={handlePlusClick}>
               <img src={PlusBlack} alt="" />
             </Plus>
           </AmountController>

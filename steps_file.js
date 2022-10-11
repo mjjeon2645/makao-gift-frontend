@@ -19,4 +19,19 @@ module.exports = () => actor({
     this.amOnPage(`${backdoorBaseUrl}/setup-three-products`);
   },
 
+  setupEighteenProducts() {
+    this.amOnPage(`${backdoorBaseUrl}/setup-eighteen-products`);
+  },
+
+  resetOrderHistories() {
+    this.amOnPage(`${backdoorBaseUrl}/reset-order-histories`);
+  },
+
+  login() {
+    this.amOnPage('/login');
+    this.fillField({ id: 'input-user-id' }, 'mjjeon2645');
+    this.fillField({ id: 'input-password' }, '123qweQWE$');
+    this.click('로그인하기');
+  },
+
 });

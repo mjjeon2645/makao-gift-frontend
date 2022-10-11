@@ -194,7 +194,7 @@ export default function SignUpForm() {
             : errors.checkPassword ? (
               <Error>{errors.checkPassword.message}</Error>
             ) : null} */}
-          {errors.checkPassword ? (
+          {errors.checkPassword.message ? (
             <Error>비밀번호가 일치하지 않습니다</Error>
           )
             : null}

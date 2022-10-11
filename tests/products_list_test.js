@@ -1,4 +1,4 @@
-Feature('Products Page');
+Feature('Products List Page');
 
 Scenario('고객이 상품 목록을 확인하기 위해 스토어 화면에 접속하고자 함(로그인 X, 상품 없음)', ({ I }) => {
   // Given
@@ -25,23 +25,24 @@ Scenario('고객이 상품목록을 확인하기 위해 스토어 화면에 접�
   I.see('누구나 좋아하는 지방시 선물세트', 'button[type="button"]');
   I.see('새로나온 아이폰 14', 'button[type="button"]');
   I.see('상주농협', 'button[type="button"]');
+  I.see('1', 'button[type="button"]');
+  I.dontSee('2', 'button[type="button"]');
 });
 
-// Scenario('고객이 상품목록 확인 중 로그인을 함)', ({ I }) => {
-//   // Given
-//   I.amOnPage('/products');
+Scenario('고객이 상품목록 확인 중 로그인을 함)', ({ I }) => {
+  // Given
+  I.setupUser();
+  I.setupEighteenProducts();
+  I.amOnPage('/products');
 
-//   // TODO. 고객의 계정이 사전에 준비되어야 함(id: mjjeon2645, pw: 123!@#qweQWE)
-//   // TODO. 업로드 된 상품은 총 25개(..너무 많은가..)
+  // When
+  I.click('로그인');
+  I.fillField({ id: 'input-user-id' }, 'mjjeon2645');
+  I.fillField({ id: 'input-password' }, secret('123qweQWE$'));
+  I.click('로그인하기');
 
-//   // When
-//   I.click('로그인');
-//   // I.amOnPage('/login'); => 이거 들어가야 하나?
-//   I.fillField('user-id', 'mjjeon2645');
-//   I.fillField('password', secret('123!@#qweQWE'));
-
-//   // Then
-//   I.see('내 잔액: 50,000원');
-//   I.see('로그아웃');
-//   I.dontSee('로그인');
-// });
+  // Then
+  I.see('내 잔액: 50,000원');
+  I.see('로그아웃');
+  I.dontSee('로그인');
+});

@@ -138,7 +138,7 @@ export default function OrderHistoriesList() {
           <Lists>
             {orderHistories.map((orderHistory) => (
               <li key={orderHistory.id}>
-                <History type="button" onClick={() => handleHistoryClick(orderHistory.id)}>
+                <History type="button" name={orderHistory.receiver} onClick={() => handleHistoryClick(orderHistory.id)}>
                   <ImageBox>
                     <img src={orderHistory.imgSource} alt={orderHistory.productName} />
                   </ImageBox>

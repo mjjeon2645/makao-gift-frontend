@@ -52,7 +52,7 @@ Scenario('고객이 아이디를 누락하여 로그인에 실패', ({ I }) => {
 
   // When
   I.fillField({ id: 'input-user-id' }, '');
-  I.fillField({ id: 'input-password' }, secret('123!@#qweQWE'));
+  I.fillField({ id: 'input-password' }, secret('123qweQWE$'));
   I.click('로그인하기');
 
   // Then
