@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import numberFormat from '../utils/numberFormat';
 import useUserStore from '../hooks/useUserStore';
 import useProductStore from '../hooks/useProductStore';
+import useOrderHistoryStore from '../hooks/useOrderHistoryStore';
 
 const Container = styled.header`
   border-bottom: 1px solid #D9D9D9;
@@ -64,6 +65,7 @@ export default function Header() {
   const navigate = useNavigate();
   const userStore = useUserStore();
   const productStore = useProductStore();
+  const orderHistoryStore = useOrderHistoryStore();
 
   useEffect(() => {
     if (accessToken) {
@@ -73,8 +75,9 @@ export default function Header() {
 
   const handleLogout = () => {
     setAccessToken('');
-    userStore.clearState();
-    productStore.clearState();
+    userStore.clearUserState();
+    productStore.clearProductState();
+    orderHistoryStore.clearOrderHistoryState();
     navigate('/');
   };
 

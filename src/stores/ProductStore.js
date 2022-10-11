@@ -13,11 +13,6 @@ export default class ProductStore {
     this.volume = 1;
     this.totalPrice = 0;
 
-    this.orderHistories = [];
-    this.orderHistory = {};
-
-    this.historiesTotalPageNumbers = [];
-
     this.amountState = '';
 
     this.errorMessage = '';
@@ -35,11 +30,9 @@ export default class ProductStore {
     this.listeners.forEach((listener) => listener());
   }
 
-  clearState() {
+  clearProductState() {
     this.volume = 1;
     this.totalPrice = 0;
-    this.orderHistories = [];
-    this.orderHistory = {};
     this.amountState = '';
     this.errorMessage = '';
   }
@@ -48,6 +41,7 @@ export default class ProductStore {
     // 이 작업이 왜 필요한거지?
     // this.products = [];
     // this.publish();
+
     this.amountState = '';
     this.volume = 1;
 
@@ -102,22 +96,6 @@ export default class ProductStore {
 
     userStore.fetchBalance();
 
-    this.publish();
-  }
-
-  async fetchOrderHistories() {
-    const { orderHistories, totalPageNumbers } = await apiService.requestOrderHistories();
-    this.orderHistories = orderHistories;
-
-    this.historiesTotalPageNumbers = [...Array(totalPageNumbers)]
-      .map((_, index) => index + 1);
-
-    this.publish();
-  }
-
-  async fetchOrderHistory(id) {
-    const data = await apiService.requestOrderHistory(id);
-    this.orderHistory = data;
     this.publish();
   }
 

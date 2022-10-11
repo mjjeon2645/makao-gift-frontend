@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useProductStore from '../hooks/useProductStore';
+import useOrderHistoryStore from '../hooks/useOrderHistoryStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
@@ -115,13 +115,13 @@ export default function OrderHistoryDetail() {
   const location = useLocation();
   const { id } = location.state;
 
-  const productStore = useProductStore();
-  const { orderHistory } = productStore;
+  const orderHistoryStore = useOrderHistoryStore();
+  const { orderHistory } = orderHistoryStore;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    productStore.fetchOrderHistory(id);
+    orderHistoryStore.fetchOrderHistory(id);
   }, []);
 
   const handleOrderHistoriesClick = () => {

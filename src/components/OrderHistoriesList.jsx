@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useProductStore from '../hooks/useProductStore';
+import useOrderHistoryStore from '../hooks/useOrderHistoryStore';
 
 const Container = styled.div`
   display: flex;
@@ -114,17 +114,17 @@ const PageNumber = styled.div`
 `;
 
 export default function OrderHistoriesList() {
-  const productStore = useProductStore();
+  const orderHistoryStore = useOrderHistoryStore();
   const navigate = useNavigate();
 
-  const { orderHistories, historiesTotalPageNumbers } = productStore;
+  const { orderHistories, historiesTotalPageNumbers } = orderHistoryStore;
 
   const handleHistoryClick = (id) => {
     navigate(`/orders/${id}`, { state: { id } });
   };
 
   const handlePageNumberClick = (number) => {
-    productStore.changeHistoriesPageNumber(number);
+    orderHistoryStore.changeHistoriesPageNumber(number);
     navigate(`/orders?page=${number}`);
   };
 

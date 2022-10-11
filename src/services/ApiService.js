@@ -84,6 +84,7 @@ export default class ApiService {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
+
     return data;
   }
 

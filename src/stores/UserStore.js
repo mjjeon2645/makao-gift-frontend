@@ -26,7 +26,7 @@ export default class UserStore {
     this.listeners.forEach((listener) => listener());
   }
 
-  clearState() {
+  clearUserState() {
     this.name = '';
     this.userId = '';
     this.amount = 0;
@@ -35,19 +35,12 @@ export default class UserStore {
     this.errorMessage = '';
   }
 
-  // 이런게 필요한건가?????
-  // setAmount(amount) {
-  //   this.amount = amount;
-  //   this.publish();
-  // }
-
   async login({ userId, password }) {
     try {
       const {
         accessToken, name, amount,
       } = await apiService.postSession({ userId, password });
 
-      // TODO. 추후 signup에서 쓰는 userId와 충돌이 생기지 않는지 확인해야 함
       this.userId = userId;
       this.name = name;
       this.amount = amount;
