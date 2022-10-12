@@ -24,8 +24,6 @@ describe('Order Histories List', () => {
     );
   }
 
-  // TODO. 내가 주문한 내역이 없을 때와 있을 때를 구분해주어야 함
-
   context('주문한 내역이 없을 때', () => {
     beforeEach(() => {
       orderHistories = [];
