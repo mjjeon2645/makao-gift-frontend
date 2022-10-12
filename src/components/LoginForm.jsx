@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
-import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useLocalStorage } from 'usehooks-ts';
-import useUserStore from '../hooks/useUserStore';
 
-// TODO. 에러 시 붉은색으로 input 테두리 만들어야 함
+import { useForm } from 'react-hook-form';
+import { useLocalStorage } from 'usehooks-ts';
+
+import styled from 'styled-components';
+
+import useUserStore from '../hooks/useUserStore';
 
 const Wrapper = styled.div`
  width: 100%;
@@ -68,6 +69,7 @@ export default function LoginForm() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const { id } = location.state ? location.state : '';
 
   const userStore = useUserStore();

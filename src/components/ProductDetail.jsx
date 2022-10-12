@@ -5,9 +5,6 @@ import styled from 'styled-components';
 import useUserStore from '../hooks/useUserStore';
 import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
-import MinusGray from '../assets/images/minus-gray.png';
-import MinusBlack from '../assets/images/minus-black.png';
-import PlusBlack from '../assets/images/plus-black.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -229,16 +226,16 @@ export default function ProductDetail() {
           <AmountController>
             {productStore.volume === 1 ? (
               <DisabledMinus type="button" name="minusgray" disabled={productStore.volume === 1}>
-                <img src={MinusGray} alt="" />
+                <img src="https://user-images.githubusercontent.com/104840243/195230242-a15044f8-2b9c-48c0-b31e-0f2480e712e4.png" alt="" />
               </DisabledMinus>
             ) : (
               <EnabledMinus type="button" name="minusblack" onClick={handleMinusClick}>
-                <img src={MinusBlack} alt="" />
+                <img src="https://user-images.githubusercontent.com/104840243/195230231-73eb5402-d854-4025-b30b-df4bf729df88.png" alt="" />
               </EnabledMinus>
             )}
             <p>{productStore.volume}</p>
             <Plus type="button" name="plusblack" onClick={handlePlusClick}>
-              <img src={PlusBlack} alt="" />
+              <img src="https://user-images.githubusercontent.com/104840243/195230256-58f1754f-fcd2-479d-b604-4320522c62e6.png" alt="" />
             </Plus>
           </AmountController>
         </Row>

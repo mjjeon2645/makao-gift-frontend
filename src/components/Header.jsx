@@ -1,8 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useLocalStorage } from 'usehooks-ts';
 import { useEffect } from 'react';
+
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useLocalStorage } from 'usehooks-ts';
+
 import styled from 'styled-components';
+
 import numberFormat from '../utils/numberFormat';
+
 import useUserStore from '../hooks/useUserStore';
 import useProductStore from '../hooks/useProductStore';
 import useOrderHistoryStore from '../hooks/useOrderHistoryStore';
@@ -62,7 +67,9 @@ const LogoutButton = styled.button`
 
 export default function Header() {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+
   const navigate = useNavigate();
+
   const userStore = useUserStore();
   const productStore = useProductStore();
   const orderHistoryStore = useOrderHistoryStore();

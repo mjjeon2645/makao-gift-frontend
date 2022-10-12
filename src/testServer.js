@@ -10,7 +10,7 @@ const server = setupServer(
   rest.post(`${baseUrl}/session`, async (req, res, ctx) => {
     const { userId, password } = await req.json();
 
-    if (userId === 'mjjeon2645' && password === '123!@#qweQWE') {
+    if (userId === 'mjjeon2645' && password === '123qweQWE$') {
       return res(ctx.json({
         accessToken: 'ACCESS.TOKEN',
         name: '전민지',
@@ -25,12 +25,12 @@ const server = setupServer(
       name, userId, password, checkPassword,
     } = await req.json();
 
-    if (name === '전민지' && userId === 'mjjeon26457'
-        && password === '123!@#qweQWE'
-        && checkPassword === '123!@#qweQWE') {
+    if (name === '전민지' && userId === 'mjjeon2645'
+        && password === '123qweQWE$'
+        && checkPassword === '123qweQWE$') {
       return res(ctx.json({
         name: '전민지',
-        userId: 'mjjeon26457',
+        userId: 'mjjeon2645',
         amount: 50_000,
       }));
     }
