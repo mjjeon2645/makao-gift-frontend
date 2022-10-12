@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import ProductsList from './ProductsList';
 
@@ -75,12 +75,20 @@ describe('ProductsList', () => {
     });
 
     it('변경된 문구와 상품목록 노출', () => {
+      renderProductsList();
       screen.getByText('인기선물을 한 자리에 모았어요');
 
       screen.getByText('맛있는 상주곶감');
-      screen.getByText('10,000원');
-      screen.getByText('4,900원');
+      screen.getByText('10,000');
+      screen.getByText('4,900');
       screen.getByText('투썸플레이스');
+    });
+
+    it('특정제품 클릭 시 해당 제품의 상세페이지로 이동', () => {
+      renderProductsList();
+
+      fireEvent.click(screen.getByText('맛있는 상주곶감'));
+      expect(navigate).toBeCalledWith('/products/2', { state: { id: 2 } });
     });
   });
 });
