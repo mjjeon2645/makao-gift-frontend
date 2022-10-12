@@ -189,15 +189,10 @@ export default function SignUpForm() {
             )}
             error={errors.checkPassword}
           />
-          {/* {userStore.isCheckPasswordRight ? (
-            <Error>{userStore.errorMessage}</Error>)
-            : errors.checkPassword ? (
-              <Error>{errors.checkPassword.message}</Error>
-            ) : null} */}
-          {errors.checkPassword.message ? (
-            <Error>비밀번호가 일치하지 않습니다</Error>
-          )
-            : null}
+          {errors.checkPassword
+            ? (errors.checkPassword.message === '비밀번호를 입력해주세요'
+              ? (<Error>{errors.checkPassword.message}</Error>)
+              : (<Error>비밀번호가 일치하지 않습니다</Error>)) : null}
         </Field>
         <Signup type="submit">회원가입</Signup>
       </form>

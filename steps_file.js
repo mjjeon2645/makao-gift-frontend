@@ -27,6 +27,10 @@ module.exports = () => actor({
     this.amOnPage(`${backdoorBaseUrl}/reset-order-histories`);
   },
 
+  setupTwoHistories() {
+    this.amOnPage(`${backdoorBaseUrl}/setup-two-histories`);
+  },
+
   login() {
     this.amOnPage('/login');
     this.fillField({ id: 'input-user-id' }, 'mjjeon2645');
