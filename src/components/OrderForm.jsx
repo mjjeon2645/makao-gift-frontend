@@ -1,6 +1,9 @@
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+
+import { useForm } from 'react-hook-form';
+
 import styled from 'styled-components';
+
 import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
@@ -215,7 +218,7 @@ export default function OrderForm() {
           />
           <SubLabel>100글자 이내로 입력해주세요</SubLabel>
         </div>
-        <Button type="submit">선물하기</Button>
+        <Button type="submit" name="submitButton">선물하기</Button>
       </Form>
     </Container>
   );

@@ -36,6 +36,31 @@ const server = setupServer(
     }
     return res(ctx.status(400));
   }),
+
+  rest.get(`${baseUrl}/session/me`, async (req, res, ctx) => {
+    const { headers } = await req.json();
+
+    if (headers === { Authorization: 'Bearer ACCESS.TOKEN' }) {
+      res(ctx.json({
+        balance: 50_000,
+      }));
+    }
+    return res(ctx.status(400));
+  }),
+
+  rest.post(`${baseUrl}/order`, async (req, res, ctx) => {
+    const {
+      receiver, address, message, productId, volume, totalPrice,
+    } = await req.json();
+
+    if (receiver === '이서진' && address === '서울시 양천구' && message === '서진아 생일축하해~'
+    && productId === 1 && volume === 1 && totalPrice === 10_000) {
+      return res(ctx.json({
+        amount: 40_000,
+      }));
+    }
+    return null;
+  }),
 );
 
 export default server;

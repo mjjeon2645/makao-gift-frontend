@@ -129,7 +129,7 @@ export default function ProductsList() {
           <Lists>
             {products.map((product) => (
               <li key={product.id}>
-                <Product type="button" class={product.name} onClick={() => handleProductClick(product.id)}>
+                <Product type="button" className={product.name} onClick={() => handleProductClick(product.id)}>
                   <ImageBox>
                     <img src={product.imgSource} alt={product.name} />
                   </ImageBox>

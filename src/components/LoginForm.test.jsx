@@ -1,7 +1,9 @@
 import {
   fireEvent, render, screen, waitFor,
 } from '@testing-library/react';
+
 import { ThemeProvider } from 'styled-components';
+
 import defaultTheme from '../styles/defaultTheme';
 import LoginForm from './LoginForm';
 
