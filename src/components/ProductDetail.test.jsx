@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../styles/defaultTheme';
 
@@ -113,6 +115,9 @@ describe('Product Detatil', () => {
 
       fireEvent.click(screen.getByText('선물하기'));
       expect(changeAmountState).toBeCalledWith('low');
+      waitFor(() => {
+        screen.getByText('❌잔액이 부족하여 선물하기가 불가합니다❌');
+      });
     });
   });
 
