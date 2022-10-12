@@ -47,11 +47,12 @@ export default class UserStore extends Store {
   async fetchBalance() {
     try {
       const { balance } = await apiService.fetchBalance();
+
       this.amount = balance;
 
       this.publish();
     } catch (e) {
-      console.log(e);
+      //
     }
   }
 

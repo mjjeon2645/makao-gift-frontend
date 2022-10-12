@@ -34,14 +34,22 @@ const server = setupServer(
         amount: 50_000,
       }));
     }
+
+    if (userId === 'mjjeon26457') {
+      return res(
+        ctx.status(400),
+        ctx.json('해당 아이디는 사용할 수 없습니다'),
+      );
+    }
+
     return res(ctx.status(400));
   }),
 
   rest.get(`${baseUrl}/session/me`, async (req, res, ctx) => {
-    const { headers } = await req.json();
+    const accessToken = await req.headers.get('Authorization');
 
-    if (headers === { Authorization: 'Bearer ACCESS.TOKEN' }) {
-      res(ctx.json({
+    if (accessToken === 'Bearer ACCESS.TOKEN') {
+      return res(ctx.json({
         balance: 50_000,
       }));
     }
@@ -55,7 +63,7 @@ const server = setupServer(
 
     if (receiver === '이서진' && address === '서울시 양천구' && message === '서진아 생일축하해~'
     && productId === 1 && volume === 1 && totalPrice === 10_000) {
-      res(ctx.json({
+      return res(ctx.json({
         amount: 40_000,
       }));
     }
@@ -63,9 +71,9 @@ const server = setupServer(
   }),
 
   rest.get(`${baseUrl}/orders`, async (req, res, ctx) => {
-    const { headers } = await req.json();
-    if (headers === { Authorization: 'Bearer ACCESS.TOKEN' }) {
-      res(ctx.json({
+    const accessToken = await req.headers.get('Authorization');
+    if (accessToken === 'Bearer ACCESS.TOKEN') {
+      return res(ctx.json({
         orderHistories: [
           {
             address: '서울시 양천구',

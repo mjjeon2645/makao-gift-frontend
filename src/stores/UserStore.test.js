@@ -1,4 +1,6 @@
 import { waitFor } from '@testing-library/react';
+import { apiService } from '../services/ApiService';
+
 import server from '../testServer';
 import UserStore from './UserStore';
 
@@ -100,61 +102,67 @@ describe('UserStore => signUp', () => {
 
     context('이름이 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await userStore.signUp({
+        const data = await userStore.signUp({
           name: '전민지123',
           userId: 'mjjeon2645',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE',
         });
 
-        expect(userStore.name).toBeFalsy();
-        expect(userStore.userId).toBeFalsy();
-        expect(userStore.amount).toBeFalsy();
+        expect(data).toBeFalsy();
       });
     });
 
     context('아이디가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await userStore.signUp({
+        const data = await userStore.signUp({
           name: '전민지',
           userId: 'abc',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE',
         });
 
-        expect(userStore.name).toBeFalsy();
-        expect(userStore.userId).toBeFalsy();
-        expect(userStore.amount).toBeFalsy();
+        expect(data).toBeFalsy();
       });
     });
 
     context('비밀번호가 조건에 맞지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await userStore.signUp({
+        const data = await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
           password: '1234',
           checkPassword: '1234',
         });
 
-        expect(userStore.name).toBeFalsy();
-        expect(userStore.userId).toBeFalsy();
-        expect(userStore.amount).toBeFalsy();
+        expect(data).toBeFalsy();
       });
     });
 
     context('체크 비밀번호가 비밀번호와 같지 않지 않을 때', () => {
       it('회원가입 실패', async () => {
-        await userStore.signUp({
+        const data = await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
           password: '123!@#qweQWE',
           checkPassword: '123!@#qweQWE!',
         });
 
-        expect(userStore.name).toBeFalsy();
-        expect(userStore.userId).toBeFalsy();
-        expect(userStore.amount).toBeFalsy();
+        expect(data).toBeFalsy();
+      });
+    });
+
+    context('기존에 존재하는 아이디로 가입을 시도할 때', () => {
+      it('회원가입 실패', async () => {
+        const data = await userStore.signUp({
+          name: '전민지',
+          userId: 'mjjeon26457',
+          password: '123qweQWE~',
+          checkPassword: '123qweQWE~',
+        });
+
+        expect(data).toBeFalsy();
+        expect(userStore.errorMessage).toBe('해당 아이디는 사용할 수 없습니다');
       });
     });
   });
@@ -168,8 +176,8 @@ describe('UserStore => fetchBalance', () => {
   });
 
   context('로그인 후 웹페이지 전체에서 본인의 잔액을 확인하고자 함', () => {
-    it('잔액을 실시간으로 확인 가능', async () => {
-      await userStore.login({ userId: 'mjjeon2645', password: '123qweQWE$' });
+    it('잔액 확인 가능', async () => {
+      apiService.setAccessToken('ACCESS.TOKEN');
       userStore.fetchBalance();
 
       waitFor(() => {
