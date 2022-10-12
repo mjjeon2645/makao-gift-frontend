@@ -1,4 +1,5 @@
 import { apiService } from '../services/ApiService';
+
 import Store from './Store';
 
 export default class OrderHistoryStore extends Store {
@@ -31,7 +32,7 @@ export default class OrderHistoryStore extends Store {
       this.orderHistories = await apiService.requestHistoriesChangePage(number);
       this.publish();
     } catch (e) {
-      console.log(e);
+      //
     }
   }
 
@@ -41,7 +42,7 @@ export default class OrderHistoryStore extends Store {
       this.orderHistory = data;
       this.publish();
     } catch (e) {
-      console.log(e);
+      //
     }
   }
 }
