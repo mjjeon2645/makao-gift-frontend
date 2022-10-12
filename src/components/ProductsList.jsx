@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
+
 import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
@@ -107,8 +109,6 @@ export default function ProductsList() {
   const productStore = useProductStore();
 
   const { products, productsTotalPageNumbers } = productStore;
-
-  // const location = useLocation();
 
   const navigate = useNavigate();
 
