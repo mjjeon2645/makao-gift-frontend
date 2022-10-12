@@ -3,7 +3,7 @@
 
 export default class ApiService {
   async postSession({ userId, password }) {
-    if (userId === 'mjjeon2645' && password === '123!@#qweQWE') {
+    if (userId === 'mjjeon2645' && password === '123qweQWE$') {
       return {
         accessToken: 'ACCESS.TOKEN',
         name: '전민지',

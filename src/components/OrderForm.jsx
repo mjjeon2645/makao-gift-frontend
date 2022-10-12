@@ -134,10 +134,13 @@ export default function OrderForm() {
 
   const onSubmit = async (data) => {
     const { receiver, address, message } = data;
+    try {
+      await productStore.order({ receiver, address, message });
 
-    await productStore.order({ receiver, address, message });
-
-    navigate('/orders');
+      navigate('/orders');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

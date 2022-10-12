@@ -13,7 +13,7 @@ const Title = styled.h2`
   margin-block: .7em;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   p:first-child {
     margin-bottom: .3em;
   }

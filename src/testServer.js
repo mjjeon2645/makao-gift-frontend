@@ -55,7 +55,7 @@ const server = setupServer(
 
     if (receiver === '이서진' && address === '서울시 양천구' && message === '서진아 생일축하해~'
     && productId === 1 && volume === 1 && totalPrice === 10_000) {
-      return res(ctx.json({
+      res(ctx.json({
         amount: 40_000,
       }));
     }

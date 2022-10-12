@@ -1,8 +1,10 @@
 /* eslint-disable no-nested-ternary */
-
 import { useForm } from 'react-hook-form';
+
 import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
+
 import useUserStore from '../hooks/useUserStore';
 
 const Wrapper = styled.div`
@@ -83,14 +85,9 @@ export default function SignUpForm() {
       name, userId, password, checkPassword,
     } = data;
 
-    await userStore.signUp(
-      {
-        name,
-        userId,
-        password,
-        checkPassword,
-      },
-    );
+    await userStore.signUp({
+      name, userId, password, checkPassword,
+    });
 
     if (userStore.isCheckPasswordRight) {
       return;
@@ -180,10 +177,6 @@ export default function SignUpForm() {
               'checkPassword',
               {
                 required: { value: true, message: '비밀번호를 입력해주세요' },
-                // validated: {
-                //   value: (value) => value === watch('password'),
-                //   message: '비밀번호가 일치하지 않습니다',
-                // },
                 validate: (value) => value === watch('password'),
               },
             )}

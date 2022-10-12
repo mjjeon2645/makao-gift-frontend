@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import server from '../testServer';
 import UserStore from './UserStore';
 
@@ -45,7 +46,7 @@ describe('UserStore => login', () => {
   describe('login', () => {
     context('정확한 id, password로 로그인', () => {
       it('로그인 성공', async () => {
-        await userStore.login({ userId: 'mjjeon2645', password: '123!@#qweQWE' });
+        await userStore.login({ userId: 'mjjeon2645', password: '123qweQWE$' });
 
         expect(userStore.name).toBe('전민지');
         expect(userStore.amount).toBe(50_000);
@@ -82,15 +83,18 @@ describe('UserStore => signUp', () => {
   describe('signUp', () => {
     context('조건에 맞는 id, 이름, 패스워드, 체크패스워드 입력', () => {
       it('회원가입 성공', async () => {
-        await userStore.signUp({
+        const data = await userStore.signUp({
           name: '전민지',
           userId: 'mjjeon2645',
-          password: '123!@#qweQWE',
-          checkPassword: '123!@#qweQWE',
+          password: '123qweQWE$',
+          checkPassword: '123qweQWE$',
         });
-        expect(userStore.name).toBe('전민지');
-        expect(userStore.userId).toBe('mjjeon2645');
-        expect(userStore.amount).toBe(50_000);
+
+        waitFor(() => {
+          expect(data.name).toBe('전민지');
+          expect(data.userId).toBe('mjjeon2645');
+          expect(data.amount).toBe(50_000);
+        });
       });
     });
 
@@ -151,6 +155,25 @@ describe('UserStore => signUp', () => {
         expect(userStore.name).toBeFalsy();
         expect(userStore.userId).toBeFalsy();
         expect(userStore.amount).toBeFalsy();
+      });
+    });
+  });
+});
+
+describe('UserStore => fetchBalance', () => {
+  let userStore;
+
+  beforeEach(() => {
+    userStore = new UserStore();
+  });
+
+  context('로그인 후 웹페이지 전체에서 본인의 잔액을 확인하고자 함', () => {
+    it('잔액을 실시간으로 확인 가능', async () => {
+      await userStore.login({ userId: 'mjjeon2645', password: '123qweQWE$' });
+      userStore.fetchBalance();
+
+      waitFor(() => {
+        expect(userStore.amount).toBe(50_000);
       });
     });
   });

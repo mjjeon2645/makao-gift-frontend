@@ -27,14 +27,22 @@ export default class OrderHistoryStore extends Store {
   }
 
   async changeHistoriesPageNumber(number) {
-    this.orderHistories = await apiService.requestHistoriesChangePage(number);
-    this.publish();
+    try {
+      this.orderHistories = await apiService.requestHistoriesChangePage(number);
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async fetchOrderHistory(id) {
-    const data = await apiService.requestOrderHistory(id);
-    this.orderHistory = data;
-    this.publish();
+    try {
+      const data = await apiService.requestOrderHistory(id);
+      this.orderHistory = data;
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 

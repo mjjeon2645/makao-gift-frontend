@@ -79,13 +79,17 @@ export default class ProductStore extends Store {
     const { volume } = this;
     const { totalPrice } = this;
 
-    await apiService.requestOrder({
-      receiver, address, message, productId, volume, totalPrice,
-    });
+    try {
+      await apiService.requestOrder({
+        receiver, address, message, productId, volume, totalPrice,
+      });
 
-    userStore.fetchBalance();
+      userStore.fetchBalance();
 
-    this.publish();
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   changeAmountState(state) {
