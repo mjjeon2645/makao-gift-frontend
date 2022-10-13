@@ -114,23 +114,7 @@ const Button = styled.button`
   margin-top: 3em;
 `;
 
-export default function OrderHistoryDetail() {
-  const location = useLocation();
-  const { id } = location.state;
-
-  const orderHistoryStore = useOrderHistoryStore();
-  const { orderHistory } = orderHistoryStore;
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    orderHistoryStore.fetchOrderHistory(id);
-  }, []);
-
-  const handleOrderHistoriesClick = () => {
-    navigate('/orders');
-  };
-
+export default function OrderHistoryDetail({ handleOrderHistoriesClick, orderHistory }) {
   return (
     <Container>
       <Hero>

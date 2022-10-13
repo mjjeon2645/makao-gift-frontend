@@ -4,20 +4,10 @@ import defaultTheme from '../styles/defaultTheme';
 
 import OrderHistoryDetail from './OrderHistoryDetail';
 
-const navigate = jest.fn();
+describe('OrderHistoryDetail', () => {
+  const handleOrderHistoriesClick = jest.fn();
 
-const fetchOrderHistory = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useNavigate: () => navigate,
-  useLocation: () => ({
-    state: 0,
-  }),
-}));
-
-jest.mock('../hooks/useOrderHistoryStore', () => () => ({
-  fetchOrderHistory: () => fetchOrderHistory,
-  orderHistory: {
+  const orderHistory = {
     address: '서울시 양천구',
     id: 0,
     imgSource: 'https://user-images.githubusercontent.com/104840243/194968445-034616c3-7ec9-46ec-8601-87ffb2239d4d.png',
@@ -28,14 +18,15 @@ jest.mock('../hooks/useOrderHistoryStore', () => () => ({
     receiver: '이서진',
     totalPrice: 10000,
     volume: 1,
-  },
-}));
+  };
 
-describe('OrderHistoryDetail', () => {
   function renderOrderHistoryDetail() {
     render(
       <ThemeProvider theme={defaultTheme}>
-        <OrderHistoryDetail />
+        <OrderHistoryDetail
+          handleOrderHistoriesClick={handleOrderHistoriesClick}
+          orderHistory={orderHistory}
+        />
       </ThemeProvider>,
     );
   }
@@ -65,6 +56,6 @@ describe('OrderHistoryDetail', () => {
 
     fireEvent.click(screen.getByText('주문 목록 보기'));
 
-    expect(navigate).toBeCalledWith('/orders');
+    expect(handleOrderHistoriesClick).toBeCalled();
   });
 });
