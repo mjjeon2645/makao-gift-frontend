@@ -42,6 +42,13 @@ const server = setupServer(
       );
     }
 
+    if (userId === 'mjjeon26458') {
+      return res(
+        ctx.status(400),
+        ctx.json('아이디 혹은 비밀번호가 맞지 않습니다'),
+      );
+    }
+
     return res(ctx.status(400));
   }),
 
@@ -75,7 +82,7 @@ const server = setupServer(
         ctx.json('❌잔액이 부족하여 선물하기가 불가합니다❌'),
       );
     }
-    return null;
+    return {};
   }),
 
   rest.get(`${baseUrl}/orders`, async (req, res, ctx) => {
@@ -118,13 +125,12 @@ const server = setupServer(
         totalPageNumbers: 0,
       }));
     }
-
     return null;
   }),
 
   rest.get(`${baseUrl}/orders`, async (req, res, ctx) => {
-    const accessToken = await req.headers.get('Authorization');
-    const page = await req.params;
+    const accessToken = req.headers.get('Authorization');
+    const page = req.params;
 
     if (accessToken === 'Bearer ACCESS.TOKEN' && page === 2) {
       return res(ctx.json({
@@ -161,7 +167,7 @@ const server = setupServer(
   }),
 
   rest.get(`${baseUrl}/orders/0`, async (req, res, ctx) => {
-    const accessToken = await req.headers.get('Authorization');
+    const accessToken = req.headers.get('Authorization');
 
     if (accessToken === 'Bearer ACCESS.TOKEN') {
       return res(ctx.json({
@@ -182,6 +188,69 @@ const server = setupServer(
     }
     return res(ctx.status(400));
   }),
-);
 
+  rest.get(`${baseUrl}/products`, async (req, res, ctx) => {
+    const page = req.url.searchParams.get('page');
+
+    if (page === '2') {
+      return res(ctx.json({
+        products: [
+          {
+            id: 9,
+            name: '테스트용 9',
+            price: 90000,
+            manufacturer: '테스터 9',
+            description: '테스트용 9 입니다',
+            imgSource: 'imgSource',
+          },
+          {
+            id: 10,
+            name: '테스트용 10',
+            price: 100000,
+            manufacturer: '테스터 10',
+            description: '테스트용 10 입니다',
+            imgSource: 'imgSource',
+          },
+        ],
+      }));
+    }
+
+    if (page !== '2') {
+      return res(ctx.json({
+        products: [
+          {
+            id: 1,
+            name: '누구나 좋아하는 지방시 선물세트',
+            price: 10000,
+            manufacturer: 'GIVENCHY',
+            description: '지방시 선물세트 누구나 다 좋아합니다',
+            imgSource: 'https://user-images.githubusercontent.com/104840243/194968445-034616c3-7ec9-46ec-8601-87ffb2239d4d.png',
+          },
+          {
+            id: 2,
+            name: '새로나온 아이폰 14',
+            price: 45000,
+            manufacturer: '애플',
+            description: '아이폰 14 싸다',
+            imgSource: 'https://user-images.githubusercontent.com/104840243/194969244-b2b64351-0a5e-429d-882b-e27a99ca2b73.png',
+          },
+        ],
+        totalPageNumbers: 2,
+      }));
+    }
+
+    return res(ctx.status(400));
+  }),
+
+  rest.get(`${baseUrl}/products/1`, async (req, res, ctx) => res(ctx.json(
+    {
+      id: 1,
+      name: '테스트용 1',
+      price: 10000,
+      manufacturer: '테스터 1',
+      description: '테스트용 1 입니다',
+      imgSource: 'imgSource',
+    },
+  ))),
+);
 export default server;

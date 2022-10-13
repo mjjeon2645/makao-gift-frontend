@@ -23,7 +23,7 @@ describe('OrderForm', () => {
   }
 
   context('order with correct information', () => {
-    it('order success!', () => {
+    it('order success!', async () => {
       renderOrderForm();
       fireEvent.change(screen.getByLabelText('받는 분 성함*'), {
         target: { value: '이서진' },
@@ -39,7 +39,7 @@ describe('OrderForm', () => {
 
       fireEvent.click(screen.getByText('선물하기'));
 
-      waitFor(() => {
+      await waitFor(() => {
         expect(navigate).toBeCalledWith('/orders');
       });
     });

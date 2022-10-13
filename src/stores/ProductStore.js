@@ -20,29 +20,41 @@ export default class ProductStore extends Store {
   }
 
   async fetchProducts() {
+    try {
     // 이 작업이 왜 필요한거지?
     // this.products = [];
     // this.publish();
 
-    this.clearProductState();
+      this.clearProductState();
 
-    const { products, totalPageNumbers } = await apiService.fetchProducts();
-    this.products = products;
-    this.productsTotalPageNumbers = [...Array(totalPageNumbers)].map((_, index) => index + 1);
+      const { products, totalPageNumbers } = await apiService.fetchProducts();
+      this.products = products;
+      this.productsTotalPageNumbers = [...Array(totalPageNumbers)].map((_, index) => index + 1);
 
-    this.publish();
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async changePageNumber(number) {
-    this.products = await apiService.requestChangePage(number);
-    this.publish();
+    try {
+      this.products = await apiService.requestChangePage(number);
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async fetchProduct(id) {
-    const productInformation = await apiService.fetchProduct(id);
-    this.product = productInformation;
-    this.totalPrice = productInformation.price;
-    this.publish();
+    try {
+      const productInformation = await apiService.fetchProduct(id);
+      this.product = productInformation;
+      this.totalPrice = productInformation.price;
+      this.publish();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   increaseVolume() {
