@@ -1,8 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useOrderHistoryStore from '../hooks/useOrderHistoryStore';
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +22,6 @@ const Title = styled.h2`
 const None = styled.h2`
   font-size: 1.2em;
   font-weight: bold;
-  /* text-align: center; */
   position: absolute;
   top: 30%;
   left: 45%;
@@ -39,7 +34,6 @@ const History = styled.button`
 `;
 
 const Lists = styled.ul`
-  /* width: 70%; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -66,7 +60,6 @@ const ImageBox = styled.div`
 const TextBox = styled.div`
   width: 250px;
   height: 100px;
-  /* height: 200px; */
   margin-top: 1em;
 
   p {
@@ -115,21 +108,11 @@ const PageNumber = styled.div`
   }
 `;
 
-export default function OrderHistoriesList() {
-  const orderHistoryStore = useOrderHistoryStore();
-  const navigate = useNavigate();
-
-  const { orderHistories, historiesTotalPageNumbers } = orderHistoryStore;
-
-  const handleHistoryClick = (id) => {
-    navigate(`/orders/${id}`, { state: { id } });
-  };
-
-  const handlePageNumberClick = (number) => {
-    orderHistoryStore.changeHistoriesPageNumber(number);
-    navigate(`/orders?page=${number}`);
-  };
-
+export default function OrderHistoriesList(
+  {
+    handleHistoryClick, handlePageNumberClick, orderHistories, historiesTotalPageNumbers,
+  },
+) {
   return (
     <Container>
       {orderHistories.length === 0 ? (

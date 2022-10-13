@@ -1,26 +1,23 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import OrderHistoriesList from './OrderHistoriesList';
-
-const navigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useNavigate: () => navigate,
-}));
-
-let orderHistories;
-let historiesTotalPageNumbers;
-
-jest.mock('../hooks/useOrderHistoryStore', () => () => ({
-  orderHistories,
-  historiesTotalPageNumbers,
-}));
 
 const context = describe;
 
 describe('Order Histories List', () => {
+  const handleHistoryClick = jest.fn();
+  const handlePageNumberClick = jest.fn();
+
+  let orderHistories;
+  let historiesTotalPageNumbers;
+
   function renderOrderHistoriesList() {
     render(
-      <OrderHistoriesList />,
+      <OrderHistoriesList
+        handleHistoryClick={handleHistoryClick}
+        handlePageNumberClick={handlePageNumberClick}
+        orderHistories={orderHistories}
+        historiesTotalPageNumbers={historiesTotalPageNumbers}
+      />,
     );
   }
 
@@ -65,18 +62,24 @@ describe('Order Histories List', () => {
           volume: 1,
         },
       ];
-      historiesTotalPageNumbers = [1];
+      historiesTotalPageNumbers = [1, 2];
     });
 
     it('주문 내역 확인 가능함', () => {
       renderOrderHistoriesList();
 
-      waitFor(() => {
-        screen.getByText('내가 주문한 내역입니다');
-        screen.getByText('To. 이서진');
-        screen.getByText('To. 새로나온 아이폰 14');
-        screen.getByText('1');
-      });
+      screen.getByText('내가 주문한 내역입니다');
+      screen.getByText('To. 이서진');
+      screen.getByText('새로나온 아이폰 14');
+      screen.getByText('1');
+
+      fireEvent.click(screen.getByText('새로나온 아이폰 14'));
+
+      expect(handleHistoryClick).toBeCalled();
+
+      fireEvent.click(screen.getByText('2'));
+
+      expect(handlePageNumberClick).toBeCalled();
     });
   });
 });
