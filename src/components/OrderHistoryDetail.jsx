@@ -29,7 +29,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `;
 
 const ImageBox = styled.div`
@@ -38,7 +37,6 @@ const ImageBox = styled.div`
   height: 300px;
   padding-top: 3em;
   margin-bottom: 1em;
-
   img {
     position: absolute;
     width: 100%;
@@ -66,16 +64,12 @@ const Row = styled.div`
   align-items: center;
   padding-block: 1.2em;
   border-top: 1px solid #E0E0E0;
-
   p {
     display: inline-block;
   }
-
   p:first-child {
     font-size: .9em;
-
   }
-
   p:last-child {
     color: #666666;
   }
@@ -89,16 +83,12 @@ const LastRow = styled.div`
   padding-block: 1.2em;
   border-top: 1px solid #E0E0E0;
   border-bottom: 1px solid #E0E0E0;
-
   p {
     display: inline-block;
   }
-
   p:first-child {
     font-size: .9em;
-
   }
-
   p:last-child {
     color: #666666;
   }
@@ -114,7 +104,23 @@ const Button = styled.button`
   margin-top: 3em;
 `;
 
-export default function OrderHistoryDetail({ handleOrderHistoriesClick, orderHistory }) {
+export default function OrderHistoryDetail() {
+  const location = useLocation();
+  const { id } = location.state;
+
+  const navigate = useNavigate();
+
+  const orderHistoryStore = useOrderHistoryStore();
+  const { orderHistory } = orderHistoryStore;
+
+  useEffect(() => {
+    orderHistoryStore.fetchOrderHistory(id);
+  }, []);
+
+  const handleOrderHistoryClick = () => {
+    navigate('/orders');
+  };
+
   return (
     <Container>
       <Hero>
@@ -152,7 +158,7 @@ export default function OrderHistoryDetail({ handleOrderHistoriesClick, orderHis
           <p>받는 분께 보내는 메세지</p>
           <p>{orderHistory.message}</p>
         </LastRow>
-        <Button type="button" onClick={handleOrderHistoriesClick}>
+        <Button type="button" onClick={handleOrderHistoryClick}>
           주문 목록 보기
         </Button>
       </Wrapper>

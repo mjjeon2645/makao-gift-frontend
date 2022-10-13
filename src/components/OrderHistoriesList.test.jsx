@@ -79,7 +79,7 @@ describe('Order Histories List', () => {
 
       fireEvent.click(screen.getByText('2'));
 
-      expect(handlePageNumberClick).toBeCalled();
+      expect(handleHistoryClick).toBeCalled();
     });
   });
 });
