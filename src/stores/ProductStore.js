@@ -1,6 +1,5 @@
 import { apiService } from '../services/ApiService';
 import Store from './Store';
-import { userStore } from './UserStore';
 
 export default class ProductStore extends Store {
   constructor() {
@@ -13,17 +12,11 @@ export default class ProductStore extends Store {
 
     this.volume = 1;
     this.totalPrice = 0;
-
-    this.amountState = '';
-
-    this.errorMessage = '';
   }
 
   clearProductState() {
     this.volume = 1;
     this.totalPrice = 0;
-    this.amountState = '';
-    this.errorMessage = '';
   }
 
   async fetchProducts() {
@@ -31,18 +24,12 @@ export default class ProductStore extends Store {
     // this.products = [];
     // this.publish();
 
-    this.amountState = '';
-    this.volume = 1;
+    this.clearProductState();
 
     const { products, totalPageNumbers } = await apiService.fetchProducts();
     this.products = products;
     this.productsTotalPageNumbers = [...Array(totalPageNumbers)].map((_, index) => index + 1);
 
-    this.publish();
-  }
-
-  async changeHistoriesPageNumber(number) {
-    this.orderHistories = await apiService.requestHistoriesChangePage(number);
     this.publish();
   }
 
@@ -72,33 +59,6 @@ export default class ProductStore extends Store {
     this.volume -= 1;
     this.totalPrice = this.volume * this.product.price;
     this.publish();
-  }
-
-  async order({ receiver, address, message }) {
-    const productId = this.product.id;
-    const { volume } = this;
-    const { totalPrice } = this;
-
-    try {
-      await apiService.requestOrder({
-        receiver, address, message, productId, volume, totalPrice,
-      });
-
-      userStore.fetchBalance();
-
-      this.publish();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  changeAmountState(state) {
-    this.amountState = state;
-    this.publish();
-  }
-
-  get isLowAmount() {
-    return this.amountState === 'low';
   }
 }
 

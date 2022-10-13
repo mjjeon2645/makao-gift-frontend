@@ -18,7 +18,6 @@ jest.mock('react-router-dom', () => ({
 const fetchProduct = jest.fn();
 const increaseVolume = jest.fn();
 const decreaseVolume = jest.fn();
-const changeAmountState = jest.fn();
 
 jest.mock('../hooks/useProductStore', () => () => ({
   // fetchProduct: () => fetchProduct,
@@ -35,7 +34,12 @@ jest.mock('../hooks/useProductStore', () => () => ({
   decreaseVolume,
   volume: 3,
   totalPrice: 14_700,
-  changeAmountState,
+}));
+
+const changeBalanceState = jest.fn();
+
+jest.mock('../hooks/useOrderStore', () => () => ({
+  changeBalanceState,
 }));
 
 let amount;
@@ -88,7 +92,7 @@ describe('Product Detatil', () => {
       screen.getByText('14,700원');
 
       fireEvent.click(screen.getByText('선물하기'));
-      expect(changeAmountState).toBeCalledWith('');
+      expect(changeBalanceState).toBeCalledWith('');
       expect(navigate).toBeCalledWith('/order', { state: { id: 0 } });
     });
   });
@@ -114,7 +118,7 @@ describe('Product Detatil', () => {
       screen.getByText('14,700원');
 
       fireEvent.click(screen.getByText('선물하기'));
-      expect(changeAmountState).toBeCalledWith('low');
+      expect(changeBalanceState).toBeCalledWith('low');
       waitFor(() => {
         screen.getByText('❌잔액이 부족하여 선물하기가 불가합니다❌');
       });

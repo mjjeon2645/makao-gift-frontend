@@ -61,11 +61,19 @@ const server = setupServer(
       receiver, address, message, productId, volume, totalPrice,
     } = await req.json();
 
-    if (receiver === '이서진' && address === '서울시 양천구' && message === '서진아 생일축하해~'
+    if (receiver === '이서진' && address === '서울시' && message === '생일축하해~'
     && productId === 1 && volume === 1 && totalPrice === 10_000) {
       return res(ctx.json({
         amount: 40_000,
       }));
+    }
+
+    if (receiver === '이서진' && address === '서울시' && message === '생일축하해~'
+    && productId === 2 && volume === 1 && totalPrice === 60_000) {
+      return res(
+        ctx.status(400),
+        ctx.json('❌잔액이 부족하여 선물하기가 불가합니다❌'),
+      );
     }
     return null;
   }),

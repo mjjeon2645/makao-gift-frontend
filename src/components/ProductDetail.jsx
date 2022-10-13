@@ -8,6 +8,8 @@ import styled from 'styled-components';
 
 import useUserStore from '../hooks/useUserStore';
 import useProductStore from '../hooks/useProductStore';
+import useOrderStore from '../hooks/useOrderStore';
+
 import numberFormat from '../utils/numberFormat';
 
 const Wrapper = styled.div`
@@ -176,6 +178,8 @@ export default function ProductDetail() {
 
   const productStore = useProductStore();
 
+  const orderStore = useOrderStore();
+
   const [accessToken] = useLocalStorage('accessToken', '');
 
   const location = useLocation();
@@ -204,11 +208,11 @@ export default function ProductDetail() {
     }
     if (accessToken) {
       if (userStore.amount < productStore.totalPrice) {
-        productStore.changeAmountState('low');
+        orderStore.changeBalanceState('low');
         return;
       }
 
-      productStore.changeAmountState('');
+      orderStore.changeBalanceState('');
       navigate('/order', { state: { id } });
     }
   };
@@ -261,7 +265,7 @@ export default function ProductDetail() {
           </TotalPrice>
         </TotalPriceSection>
         <Button type="button" onClick={handleOrderClick}>선물하기</Button>
-        {productStore.isLowAmount ? (
+        {orderStore.isLowBalance ? (
           <Error>❌잔액이 부족하여 선물하기가 불가합니다❌</Error>
         ) : (
           ''

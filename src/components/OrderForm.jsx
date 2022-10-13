@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import useProductStore from '../hooks/useProductStore';
+import useOrderStore from '../hooks/useOrderStore';
+import useUserStore from '../hooks/useUserStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
@@ -125,6 +127,8 @@ const Error = styled.p`
 
 export default function OrderForm() {
   const productStore = useProductStore();
+  const orderStore = useOrderStore();
+  const userStore = useUserStore();
 
   const navigate = useNavigate();
 
@@ -134,8 +138,14 @@ export default function OrderForm() {
 
   const onSubmit = async (data) => {
     const { receiver, address, message } = data;
+    const productId = productStore.product.id;
+    const { volume, totalPrice } = productStore;
     try {
-      await productStore.order({ receiver, address, message });
+      await orderStore.order({
+        receiver, address, message, productId, volume, totalPrice,
+      });
+
+      userStore.fetchBalance();
 
       navigate('/orders');
     } catch (e) {
