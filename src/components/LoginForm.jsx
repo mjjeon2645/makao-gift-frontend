@@ -1,9 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
-import { useLocation, useNavigate } from 'react-router-dom';
-
-import { useForm } from 'react-hook-form';
-import { useLocalStorage } from 'usehooks-ts';
 
 import styled from 'styled-components';
 
@@ -64,37 +60,10 @@ const Signup = styled.button`
   border: none;
 `;
 
-export default function LoginForm() {
-  const [, setAccessToken] = useLocalStorage('accessToken', '');
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { id } = location.state ? location.state : '';
-
+export default function LoginForm({
+  onSubmit, register, handleSubmit, errors, handleSignupClick,
+}) {
   const userStore = useUserStore();
-
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
-
-  const onSubmit = async (data) => {
-    const { userId, password } = data;
-    const accessToken = await userStore.login({ userId, password });
-    if (accessToken) {
-      setAccessToken(accessToken);
-
-      if (location.state) {
-        navigate(`/products/${id}`, { state: { id } });
-      }
-
-      if (!location.state) {
-        navigate('/');
-      }
-    }
-  };
-
-  const handleSignupClick = () => {
-    navigate('/signup');
-  };
 
   return (
     <Wrapper>

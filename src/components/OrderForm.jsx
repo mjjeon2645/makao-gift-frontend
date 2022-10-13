@@ -149,7 +149,7 @@ export default function OrderForm() {
 
       navigate('/orders');
     } catch (e) {
-      console.log(e);
+      //
     }
   };
 
