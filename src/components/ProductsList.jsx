@@ -1,8 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
 
-import useProductStore from '../hooks/useProductStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
@@ -105,22 +102,9 @@ const PageNumber = styled.div`
   }
 `;
 
-export default function ProductsList() {
-  const productStore = useProductStore();
-
-  const { products, productsTotalPageNumbers } = productStore;
-
-  const navigate = useNavigate();
-
-  const handleProductClick = (id) => {
-    navigate(`/products/${id}`, { state: { id } });
-  };
-
-  const handlePageNumberClick = (number) => {
-    productStore.changePageNumber(number);
-    navigate(`/products?page=${number}`);
-  };
-
+export default function ProductsList({
+  handleProductClick, handlePageNumberClick, products, productsTotalPageNumbers,
+}) {
   return (
     <Container>
       <Title>인기선물을 한 자리에 모았어요</Title>

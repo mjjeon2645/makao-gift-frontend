@@ -2,31 +2,23 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import ProductsList from './ProductsList';
 
-const navigate = jest.fn();
-
-const changePageNumber = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useNavigate: () => navigate,
-}));
-
 let products;
 let productsTotalPageNumbers;
-
-jest.mock('../hooks/useProductStore', () => () => ({
-  products,
-  productsTotalPageNumbers,
-  changePageNumber(number) {
-    return changePageNumber;
-  },
-}));
 
 const context = describe;
 
 describe('ProductsList', () => {
+  const handleProductClick = jest.fn();
+  const handlePageNumberClick = jest.fn();
+
   function renderProductsList() {
     render(
-      <ProductsList />,
+      <ProductsList
+        handleProductClick={handleProductClick}
+        handlePageNumberClick={handlePageNumberClick}
+        products={products}
+        productsTotalPageNumbers={productsTotalPageNumbers}
+      />,
     );
   }
 
@@ -71,7 +63,7 @@ describe('ProductsList', () => {
           price: 30_000,
         },
       ];
-      productsTotalPageNumbers = [1];
+      productsTotalPageNumbers = [1, 2];
     });
 
     it('변경된 문구와 상품목록 노출', () => {
@@ -88,7 +80,14 @@ describe('ProductsList', () => {
       renderProductsList();
 
       fireEvent.click(screen.getByText('맛있는 상주곶감'));
-      expect(navigate).toBeCalledWith('/products/2', { state: { id: 2 } });
+      expect(handleProductClick).toBeCalled();
+    });
+
+    it('2페이지 클릭 시 페이지 변화', () => {
+      renderProductsList();
+
+      fireEvent.click(screen.getByText('2'));
+      expect(handlePageNumberClick).toBeCalled();
     });
   });
 });
