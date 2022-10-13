@@ -61,7 +61,7 @@ const Signup = styled.button`
 `;
 
 export default function LoginForm({
-  onSubmit, register, handleSubmit, errors, handleSignupClick,
+  onSubmit, register, handleSubmit, errors, signupClick,
 }) {
   const userStore = useUserStore();
 
@@ -102,7 +102,7 @@ export default function LoginForm({
               : ''}
         <Login type="submit">로그인하기</Login>
       </form>
-      <Signup type="button" onClick={handleSignupClick}>회원가입</Signup>
+      <Signup type="button" onClick={signupClick}>회원가입</Signup>
     </Wrapper>
   );
 }

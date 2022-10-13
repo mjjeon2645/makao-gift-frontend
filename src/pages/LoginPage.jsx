@@ -11,18 +11,21 @@ import useUserStore from '../hooks/useUserStore';
 export default function LoginPage() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
 
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+
   const userStore = useUserStore();
 
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const { id } = location.state ? location.state : '';
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
-
   const onSubmit = async (data) => {
     const { userId, password } = data;
+
     const accessToken = await userStore.login({ userId, password });
+
     if (accessToken) {
       setAccessToken(accessToken);
 
@@ -46,7 +49,7 @@ export default function LoginPage() {
       register={register}
       handleSubmit={handleSubmit}
       errors={errors}
-      handleSignupClick={handleSignupClick}
+      signupClick={handleSignupClick}
     />
   );
 }
