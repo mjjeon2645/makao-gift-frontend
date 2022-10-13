@@ -1,12 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-
-import { useForm } from 'react-hook-form';
-
 import styled from 'styled-components';
 
-import useProductStore from '../hooks/useProductStore';
-import useOrderStore from '../hooks/useOrderStore';
-import useUserStore from '../hooks/useUserStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
@@ -14,7 +7,6 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 3em 10em;
   margin: 5em 15em 5em 15em;
-  /* margin-top: 5em; */
 `;
 
 const Wrapper = styled.div`
@@ -125,33 +117,10 @@ const Error = styled.p`
   margin-top: 1em;
 `;
 
-export default function OrderForm() {
-  const productStore = useProductStore();
-  const orderStore = useOrderStore();
-  const userStore = useUserStore();
-
-  const navigate = useNavigate();
-
+export default function OrderForm({
+  onSubmit, register, handleSubmit, errors, productStore,
+}) {
   const { name, manufacturer, imgSource } = productStore.product;
-
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
-
-  const onSubmit = async (data) => {
-    const { receiver, address, message } = data;
-    const productId = productStore.product.id;
-    const { volume, totalPrice } = productStore;
-    try {
-      await orderStore.order({
-        receiver, address, message, productId, volume, totalPrice,
-      });
-
-      userStore.fetchBalance();
-
-      navigate('/orders');
-    } catch (e) {
-      //
-    }
-  };
 
   return (
     <Container>

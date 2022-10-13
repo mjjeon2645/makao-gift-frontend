@@ -12,6 +12,9 @@ test('LoginForm', () => {
   const handleSignupClick = jest.fn();
   const errors = jest.fn();
 
+  // const onSubmit = jest.fn().mockImplementation((e) => e.preventDefault());
+  // window.HTMLFormElement.prototype.submit = () => {};
+
   render(
     <ThemeProvider theme={defaultTheme}>
       <LoginForm
