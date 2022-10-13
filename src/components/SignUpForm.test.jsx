@@ -1,36 +1,34 @@
-import {
-  fireEvent, render, screen, waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ThemeProvider } from 'styled-components';
 
 import defaultTheme from '../styles/defaultTheme';
 import SignUpForm from './SignUpForm';
 
-const navigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useNavigate: () => navigate,
-}));
-
 let isUserIdDuplicated;
 let errorMessage;
-
-jest.mock('../hooks/useUserStore', () => () => ({
-  signUp() {
-    return {};
-  },
-  isUserIdDuplicated,
-  errorMessage,
-}));
 
 const context = describe;
 
 describe('SignUpForm', () => {
+  const register = jest.fn();
+  const watch = jest.fn();
+  const handleSubmit = jest.fn();
+  const errors = jest.fn();
+  const onSubmit = jest.fn();
+
   function renderSignUpForm() {
     render(
       <ThemeProvider theme={defaultTheme}>
-        <SignUpForm />
+        <SignUpForm
+          register={register}
+          watch={watch}
+          handleSubmit={handleSubmit}
+          errors={errors}
+          onSubmit={onSubmit}
+          isUserIdDuplicated={isUserIdDuplicated}
+          errorMessage={errorMessage}
+        />
       </ThemeProvider>,
     );
   }
@@ -59,9 +57,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      await waitFor(() => {
-        expect(navigate).toBeCalledWith('/welcome');
-      });
+      expect(handleSubmit).toBeCalled();
     });
   });
 
@@ -89,9 +85,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      await waitFor(() => {
-        screen.getByText('이름을 다시 확인해주세요');
-      });
+      expect(errors).toBeTruthy();
     });
 
     it('패턴에 맞지 않는 아이디를 입력하여 회원가입 실패', () => {
@@ -115,9 +109,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      waitFor(() => {
-        screen.getByText('아이디를 다시 확인해주세요');
-      });
+      expect(errors).toBeTruthy();
     });
 
     it('패턴에 맞지 않는 비밀번호를 입력하여 회원가입 실패', async () => {
@@ -141,9 +133,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      await waitFor(() => {
-        screen.getByText('비밀번호를 다시 확인해주세요');
-      });
+      expect(errors).toBeTruthy();
     });
 
     it('비밀번호-비밀번호 확인이 일치하지 않아 회원가입 실패', async () => {
@@ -167,9 +157,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      await waitFor(() => {
-        screen.getByText('비밀번호가 일치하지 않습니다');
-      });
+      expect(errors).toBeTruthy();
     });
 
     it('모든 정보를 누락한 채 회원가입을 시도하여 실패', () => {
@@ -193,11 +181,7 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      waitFor(() => {
-        screen.getByText('이름을 입력해주세요');
-        screen.getByText('아이디를 입력해주세요');
-        screen.getAllByText('비밀번호를 입력해주세요');
-      });
+      expect(errors).toBeTruthy();
     });
 
     beforeEach(() => {
@@ -226,9 +210,8 @@ describe('SignUpForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
 
-      await waitFor(() => {
-        screen.getByText('해당 아이디는 사용할 수 없습니다');
-      });
+      expect(isUserIdDuplicated).toBeTruthy();
+      expect(errorMessage).toBeTruthy();
     });
   });
 });

@@ -1,11 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { useForm } from 'react-hook-form';
-
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useUserStore from '../hooks/useUserStore';
 
 const Wrapper = styled.div`
  width: 100%;
@@ -69,37 +63,9 @@ const Signup = styled.button`
   margin-top: 1em;
 `;
 
-export default function SignUpForm() {
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
-
-  const userStore = useUserStore();
-
-  const navigate = useNavigate();
-
-  const onSubmit = async (data) => {
-    userStore.signUpState = '';
-
-    const {
-      name, userId, password, checkPassword,
-    } = data;
-
-    await userStore.signUp({
-      name, userId, password, checkPassword,
-    });
-
-    if (userStore.isCheckPasswordRight) {
-      return;
-    }
-
-    if (userStore.isUserIdDuplicated) {
-      return;
-    }
-
-    navigate('/welcome');
-  };
-
+export default function SignUpForm({
+  register, watch, handleSubmit, errors, onSubmit, isUserIdDuplicated, errorMessage,
+}) {
   return (
     <Wrapper>
       <Title>SIGN UP</Title>
@@ -137,8 +103,8 @@ export default function SignUpForm() {
             )}
             error={errors.userId}
           />
-          {userStore.isUserIdDuplicated ? (
-            <Error>{userStore.errorMessage}</Error>
+          {isUserIdDuplicated ? (
+            <Error>{errorMessage}</Error>
           ) : errors.userId ? (
             <Error>{errors.userId.message}</Error>
           )
