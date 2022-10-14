@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import OrderForm from '../components/OrderForm';
 
@@ -9,13 +10,21 @@ import useProductStore from '../hooks/useProductStore';
 import useUserStore from '../hooks/useUserStore';
 
 export default function OrderPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
-
-  const navigate = useNavigate();
-
   const productStore = useProductStore();
   const orderStore = useOrderStore();
   const userStore = useUserStore();
+
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+
+  const location = useLocation();
+
+  const { id } = location.state;
+
+  useEffect(() => {
+    productStore.fetchProduct(id);
+  }, []);
+
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { receiver, address, message } = data;

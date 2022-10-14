@@ -187,6 +187,7 @@ export default function ProductDetail() {
   const navigate = useNavigate();
 
   const { id } = location.state;
+  // const { id } = location.state;
 
   useEffect(() => {
     productStore.fetchProduct(id);

@@ -50,7 +50,7 @@ export default class ProductStore extends Store {
     try {
       const productInformation = await apiService.fetchProduct(id);
       this.product = productInformation;
-      this.totalPrice = productInformation.price;
+      this.totalPrice = this.volume * productInformation.price;
       this.publish();
     } catch (e) {
       console.log(e);

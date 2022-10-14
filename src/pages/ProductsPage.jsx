@@ -17,8 +17,10 @@ export default function ProductsPage() {
   console.log('!!!!!!!!!!!!!!');
 
   useEffect(() => {
-    orderStore.clearOrderState();
     productStore.fetchProducts();
+
+    // productStore.changePageNumber(window.location.href.split('=')[1] || 1);
+    orderStore.clearOrderState();
   }, []);
 
   const handleProductClick = (id) => {
